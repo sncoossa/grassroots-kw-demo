@@ -219,7 +219,7 @@ export default function GrassrootsKW() {
                     <CardContent className="space-y-2">
                       <div className="text-sm text-custom-green/70">
                         <p>
-                          <strong>Date:</strong> {action.date}
+                          <strong>Date:</strong> {action.displayDate}
                         </p>
                         <p>
                           <strong>Time:</strong> {action.time}
