@@ -4,12 +4,12 @@ import type React from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, ExternalLink } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useState, useEffect } from "react"
 import { fetchCSVData, filterActions, type ActionItem } from "@/lib/csv-data"
 import { useActionState } from "react" // Import useActionState
 import { addEmailToWaitlist, type EmailState } from "@/app/actions" // Import the Server Action
+import { ActionCard } from "@/components/landing-page/action-card"
 
 const TIME_OPTIONS = ["Any", "Minutes", "Hours", "Days", "Weeks"]
 const EFFORT_OPTIONS = ["Any", "Individual", "Collective", "Both"]
@@ -212,34 +212,7 @@ export default function GrassrootsKW() {
             ) : (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {filteredActions.map((action, index) => (
-                  <Card key={index} className="bg-custom-bg border-custom-bg/30">
-                    <CardHeader>
-                      <CardTitle className="text-custom-green text-lg font-instrument-serif">{action.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                      <div className="text-sm text-custom-green/70">
-                        <p>
-                          <strong>Date:</strong> {action.displayDate}
-                        </p>
-                        <p>
-                          <strong>Time:</strong> {action.time}
-                        </p>
-                        <p>
-                          <strong>Location:</strong> {action.location}
-                        </p>
-                      </div>
-                      {action.link && (
-                        <a
-                          href={action.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-custom-green hover:text-custom-green/80 text-sm font-medium"
-                        >
-                          Learn more <ExternalLink className="h-4 w-4" />
-                        </a>
-                      )}
-                    </CardContent>
-                  </Card>
+                  <ActionCard key={index} action={action} />
                 ))}
               </div>
             )}
