@@ -1,3 +1,9 @@
+/**
+ * Header Banner Component
+ * 
+ * Displays a promotional banner at the top of the page targeting climate non-profits
+ * in the KW region with a call-to-action to contact the organization.
+ */
 export function HeaderBanner() {
   return (
     <div className="bg-custom-bg/80 py-3 px-4 text-center text-sm text-custom-green border-b border-custom-green/20">

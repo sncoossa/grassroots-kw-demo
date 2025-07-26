@@ -2,19 +2,34 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ExternalLink } from "lucide-react"
 import type { ActionItem } from "@/lib/csv-data"
 
+/**
+ * Action Card Component Props
+ */
 interface ActionCardProps {
-  action: ActionItem
+  action: ActionItem  // The action data to display
 }
 
+/**
+ * Action Card Component
+ * 
+ * Displays an individual action/event in a card format including:
+ * - Action title
+ * - Date, time, and location information
+ * - Optional external link with "Learn more" text
+ * 
+ * Used within the ActionsGrid to show filtered results.
+ */
 export function ActionCard({ action }: ActionCardProps) {
   return (
     <Card className="bg-custom-bg border-custom-bg/30">
       <CardHeader>
+        {/* Action title */}
         <CardTitle className="text-custom-green text-lg font-instrument-serif">
           {action.title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
+        {/* Action details */}
         <div className="text-sm text-custom-green/70">
           <p>
             <strong>Date:</strong> {action.displayDate}
@@ -26,6 +41,8 @@ export function ActionCard({ action }: ActionCardProps) {
             <strong>Location:</strong> {action.location}
           </p>
         </div>
+        
+        {/* Optional external link */}
         {action.link && (
           <a
             href={action.link}

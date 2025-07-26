@@ -1,8 +1,17 @@
 import { ArrowRight } from "lucide-react"
 
+/**
+ * Hero Section Component
+ * 
+ * The main landing section featuring:
+ * - Funding acknowledgment with link to Youth Climate Action Fund
+ * - Main grassroots.kw branding and title
+ * - Value proposition messaging about local initiatives and community building
+ */
 export function HeroSection() {
   return (
     <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center">
+      {/* Funding acknowledgment */}
       <div className="mb-4 flex items-center justify-center gap-2 text-sm text-custom-green/70">
         <ArrowRight className="h-4 w-4" />
         Funded by the{" "}
@@ -15,7 +24,11 @@ export function HeroSection() {
           Youth Climate Action Fund (YCAF)
         </a>
       </div>
+      
+      {/* Main title */}
       <h1 className="mb-6 text-6xl font-instrument-serif text-custom-green md:text-7xl">grassroots.kw</h1>
+      
+      {/* Value proposition */}
       <div className="mb-8 space-y-2">
         <p className="text-lg text-custom-green/80">Discover real local initiatives you can support.</p>
         <p className="text-lg text-custom-green/80">Build community while doing good.</p>
