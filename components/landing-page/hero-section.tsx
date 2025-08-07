@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center">
+    <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center bg-highlight p-4 rounded">
       <div className="mb-4 flex items-center justify-center gap-2 text-sm text-custom-green/70">
         <ArrowRight className="h-4 w-4" />
         Funded by the{" "}

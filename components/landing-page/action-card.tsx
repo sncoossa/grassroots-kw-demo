@@ -8,7 +8,7 @@ interface ActionCardProps {
 
 export function ActionCard({ action }: ActionCardProps) {
   return (
-    <Card className="bg-custom-bg border-custom-bg/30">
+    <Card className="bg-highlight border-bg-highlight/30">
       <CardHeader>
         <CardTitle className="text-custom-green text-lg font-instrument-serif">
           {action.title}
