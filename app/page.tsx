@@ -79,7 +79,7 @@ export default function GrassrootsKW() {
   }
 
   return (
-    <div className="min-h-screen bg-custom-bg">
+    <div className="min-h-screen bg-custom-highlight">
       <HeaderBanner />
       <HeroSection />
       <PreferencesSection
