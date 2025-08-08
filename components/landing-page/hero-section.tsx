@@ -2,12 +2,12 @@ import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center bg-custom-bg p-4 rounded">
+    <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center bg-custom-bg rounded">
       <div className="flex flex-col items-center mb-4">
         <img
           src="/gkw-logo-vector.png"
           alt="Grassroots KW Logo"
-          className="mb-2 w-24 h-auto mx-auto"
+          className="mb-4 w-24 h-21 mx-auto"
         />
         <div className="flex items-center justify-center gap-2 text-sm">
           <span className="flex items-center gap-2 bg-custom-highlight px-2 py-1 rounded text-custom-green/70">
@@ -32,7 +32,7 @@ export function HeroSection() {
       <img
           src="/homepage-image.png"
           alt="Homepage"
-          className="mx-auto my-4 max-w-xs rounded shadow-lg"
+          className="mx-auto my-4 max-w-xs"
         />
     </div>
   )
