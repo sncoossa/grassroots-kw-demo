@@ -9,7 +9,7 @@ import { addEmailToWaitlist, type EmailState } from "@/app/actions" // Import th
 import { HeaderBanner } from "@/components/landing-page/header-banner"
 import { HeroSection } from "@/components/landing-page/hero-section"
 import { PreferencesSection } from "@/components/landing-page/preferences-section"
-import {EventForm} from "@/components/landing-page/event-form"
+import { EventForm } from "@/components/landing-page/event-form"
 import { FooterSection } from "@/components/landing-page/footer-section"
 
 const TIME_OPTIONS = ["Any", "Minutes", "Hours", "Days", "Weeks"]
@@ -80,7 +80,7 @@ export default function GrassrootsKW() {
   }
 
   return (
-    <div className="min-h-screen bg-custom-highlight">
+    <div className="min-h-screen bg-custom-bg">
       <HeaderBanner />
       <HeroSection />
       <PreferencesSection
@@ -97,6 +97,7 @@ export default function GrassrootsKW() {
         onInterestsChange={handleInterestsChange}
         onRemoveInterest={removeInterest}
       />
+      <EventForm />
       <FooterSection
         emailAction={emailAction}
         isEmailPending={isEmailPending}

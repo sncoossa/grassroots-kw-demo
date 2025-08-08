@@ -11,7 +11,7 @@ interface FooterSectionProps {
 
 export function FooterSection({ emailAction, isEmailPending, emailState }: FooterSectionProps) {
   return (
-    <div className="bg-custom-bg py-16">
+    <div className="bg-custom-highlight py-16">
       <div className="container mx-auto px-8 text-center">
         <p className="mb-8 text-custom-green/80">
           Interested? Enter your email below and you'll be the first to know when we launch!
