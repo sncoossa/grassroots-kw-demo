@@ -7,7 +7,7 @@ export function HeroSection() {
         <img
           src="/gkw-logo-vector.png"
           alt="Grassroots KW Logo"
-          className="mb-5 w-12 h-10 mx-auto"
+          className="mb-5 w-12 h-11 mx-auto"
         />
         <div className="flex items-center justify-center gap-2 text-sm">
           <span className="flex items-center gap-2 bg-custom-highlight px-2 py-1 rounded text-custom-green/70">
@@ -24,10 +24,10 @@ export function HeroSection() {
           </span>
         </div>
       </div>
-            <h1 className="mb-6 text-6xl font-instrument-serif tracking-tightest text-custom-green md:text-7xl">grassroots.kw</h1>
-      <div className="mb-8 space-y-2">
-        <p className="text-lg tracking-tighter text-custom-green/80">Discover real local initiatives you can support.</p>
-        <p className="text-lg tracking-tighter text-custom-green/80">Build community while doing good.</p>
+            <h1 className="mb-6 text-9xl font-instrument-serif -tracking-2 text-custom-green md:text-7xl">grassroots.kw</h1>
+      <div className="mb-8 space-y-1">
+        <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Discover real local initiatives you can support.</p>
+        <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Build community while doing good.</p>
       </div>
       <img
           src="/homepage-image.png"

@@ -7,15 +7,18 @@ export function EventForm() {
       <div className="flex flex-col items-center mb-4">
       <div className="flex items-center justify-center gap-2 text-sm"></div>       
       </div>
-      <h1 className="mb-6 text-3xl font-instrument-serif tracking-tightest text-custom-green md:text-7xl">Running an event?</h1>
-      <div className="mb-8 space-y-2">
-      <p className="text-lg tracking-tighter text-custom-green/80">Let us know!</p>
+      <h3 className="mb-6 text-lg font-instrument-serif tracking-tightest text-custom-green md:text-3xl">Running an event in KW?</h3>
+      <div className="mb-8 space-y-1">
+      <p className="text-lg tracking-tight text-custom-green/80">We know it's hard to get the word out. We're here to support you.</p>
       </div>
       <Button
       asChild
       className="bg-custom-green px-8 text-lg hover:bg-custom-green/90 font-instrument-serif"
       >
-      <a href="https://tally.so/r/nrZLyR">
+      <a href="https://tally.so/r/nrZLyR"
+        target="_blank"
+        rel="noopener noreferrer">
+        submit your event details
         <ArrowRight className="ml-2 h-4 w-4" />
       </a>
       </Button>

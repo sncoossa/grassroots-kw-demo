@@ -14,7 +14,7 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
     <div className="bg-custom-highlight py-16">
       <div className="container mx-auto px-8 text-center">
         <p className="mb-8 text-custom-green/80">
-          Interested? Enter your email below and you'll be the first to know when we launch!
+          We believe climate action shouldn't feel lonely or confusing. Enter your email below to join our growing community of local changemakers!
         </p>
 
         <form action={emailAction} className="mx-auto flex max-w-md gap-2">
