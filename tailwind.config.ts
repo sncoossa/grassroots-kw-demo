@@ -23,7 +23,7 @@ const config: Config = {
         "instrument-serif": ["Instrument Serif", "serif"],
       },
       colors: {
-        "custom-bg": "#FCF7E6",
+        "custom-bg": "#FEFEF9",
         "custom-green": "#204C0A",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
