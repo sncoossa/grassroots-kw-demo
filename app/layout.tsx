@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 import { Instrument_Serif } from "next/font/google"
+import { Providers } from "@/components/providers"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -36,8 +37,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={instrumentSerif.variable}>
-      <body>{children}</body>
+    <html lang="en" className={instrumentSerif.variable} suppressHydrationWarning>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

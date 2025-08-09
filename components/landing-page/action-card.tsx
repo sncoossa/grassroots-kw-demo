@@ -46,7 +46,7 @@ export function ActionCard({ action }: ActionCardProps) {
           </div>
           
           {/* Circular sign up button */}
-          <Link href="/sign-up/indicate-interest">
+          <Link href={`/sign-up/indicate-interest?title=${encodeURIComponent(action.title)}&date=${encodeURIComponent(action.displayDate)}&time=${encodeURIComponent(action.time)}&location=${encodeURIComponent(action.location)}`}>
             <Button 
               className="bg-custom-green text-custom-bg hover:bg-custom-green/90 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0"
               size="sm"
