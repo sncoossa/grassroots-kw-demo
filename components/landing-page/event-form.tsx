@@ -7,10 +7,10 @@ export function EventForm() {
       <div className="flex flex-col items-center mb-4">
       <div className="flex items-center justify-center gap-2 text-sm"></div>       
       </div>
-      <h3 className="mb-6 text-lg font-instrument-serif tracking-tighter text-custom-green">Running a climate initiative in KW?</h3>
-      <div className="mb-8 space-y-1">
-      <p className="text-lg tracking-tight text-custom-green/80">We know it's hard to get the word out.</p>.
-      <p className="text-lg tracking-tight text-custom-green/80">We're here to support you.</p>
+      <h1 className="mb-6 text-6xl font-instrument-serif tracking-tighter text-custom-green md:text-7xl">Running a climate initiative in KW?</h1>
+      <div className="mb-8 space-y-2">
+      <p className="text-lg leading-5 tracking-tight text-custom-green/80">We know it's hard to get the word out.</p>
+      <p className="text-lg leading-5 tracking-tight text-custom-green/80">We're here to support you.</p>
       </div>
       <Button
       asChild
