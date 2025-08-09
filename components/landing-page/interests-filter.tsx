@@ -36,7 +36,7 @@ export function InterestsFilter({
             {selectedInterests.map((interest) => (
               <span
                 key={interest}
-                className="inline-flex items-center gap-1 px-2 py-1 bg-custom-bg text-custom-green text-xs rounded-full"
+                className="inline-flex items-center gap-1 px-2 py-1 bg-custom-highlight text-custom-green text-xs rounded-full"
               >
                 {interest}
                 <button
