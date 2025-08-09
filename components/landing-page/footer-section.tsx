@@ -14,7 +14,7 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
     <div className="bg-custom-highlight py-16">
       <div className="container mx-auto px-8 text-center">
         <p className="mb-8 text-custom-green/80">
-          We believe climate action shouldn't feel lonely or confusing. Enter your email below to join our growing community of local changemakers!
+          We believe climate action shouldn't feel lonely or confusing. Enter your email below to join our growing community of local changemakers.
         </p>
 
         <form action={emailAction} className="mx-auto flex max-w-md gap-2">
@@ -30,7 +30,7 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
             disabled={isEmailPending}
             className="bg-custom-green px-8 text-lg hover:bg-custom-green/90 font-instrument-serif"
           >
-            {isEmailPending ? "Submitting..." : "submit"} <ArrowRight className="ml-2 h-4 w-4" />
+            {isEmailPending ? "Submitting..." : "join"} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </form>
         {emailState && (
@@ -38,9 +38,10 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
             {emailState.message}
           </p>
         )}
-        <p className="mt-12 text-sm text-custom-green/60">
+        <div className="bg-custom-green p-4 rounded/80 py-3 px-4 text-center text-sm text-custom-highlight border-b border-custom-green/20">
           Built by Grassroots KW. We're a small team trying to make a big impact.
-        </p>
+        </div>
+       
       </div>
     </div>
   )

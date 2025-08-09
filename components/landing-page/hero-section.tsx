@@ -24,7 +24,7 @@ export function HeroSection() {
           </span>
         </div>
       </div>
-            <h1 className="mb-6 text-9xl font-instrument-serif -tracking-2 text-custom-green md:text-7xl">grassroots.kw</h1>
+            <h1 className="mb-6 text-9xl font-instrument-serif tracking-tighter text-custom-green">grassroots.kw</h1>
       <div className="mb-8 space-y-1">
         <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Discover real local initiatives you can support.</p>
         <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Build community while doing good.</p>
