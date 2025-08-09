@@ -38,11 +38,12 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
             {emailState.message}
           </p>
         )}
-        <div className="bg-custom-green p-4 rounded/80 py-3 px-4 text-center text-sm text-custom-highlight border-b border-custom-green/20">
-          Built by Grassroots KW. We're a small team trying to make a big impact.
-        </div>
        
       </div>
     </div>
+    
+    <div className="bg-custom-green p-4 rounded/80 py-3 px-4 text-center text-sm text-custom-highlight border-b border-custom-green/20">
+          Built by Grassroots KW. We're a small team trying to make a big impact.
+        </div>
   )
 }
