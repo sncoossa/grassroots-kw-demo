@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import { config } from "./config"
 
 export const authOptions = {
   providers: [
@@ -25,4 +26,8 @@ export const authOptions = {
   pages: {
     signIn: '/auth/signin',
   },
+  // Use dynamic URL configuration
+  ...(config.isProduction() && { 
+    url: config.getBaseUrl() 
+  }),
 }

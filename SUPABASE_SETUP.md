@@ -10,8 +10,12 @@ NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 
-# NextAuth
-NEXTAUTH_URL=http://localhost:3001
+# NextAuth - Automatic URL Detection
+# Leave NEXTAUTH_URL blank for automatic environment detection
+# Development: http://localhost:3000 (automatic)
+# Production: https://grassrootskw.org (automatic)
+# Override: Set NEXTAUTH_URL=your-custom-url if needed
+NEXTAUTH_URL=
 NEXTAUTH_SECRET=your-nextauth-secret
 
 # Google OAuth
@@ -33,7 +37,9 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
    - Enable Google+ API
    - Create OAuth 2.0 credentials
    - Add your domain to authorized origins
-   - Add your callback URL: `http://localhost:3001/api/auth/callback/google`
+   - Add callback URLs for both environments:
+     - Development: `http://localhost:3000/api/auth/callback/google`
+     - Production: `https://grassrootskw.org/api/auth/callback/google`
 
 ## Features Implemented
 
@@ -80,7 +86,7 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 ## Testing Authentication
 
 1. Start the development server: `pnpm dev`
-2. Navigate to `http://localhost:3001`
+2. Navigate to `http://localhost:3000`
 3. Click the profile button (top right)
 4. Sign in with Google
 5. Complete your profile
