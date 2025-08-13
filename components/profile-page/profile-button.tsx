@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { User, LogIn } from "lucide-react"
+import { LogIn } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useSession } from "next-auth/react"

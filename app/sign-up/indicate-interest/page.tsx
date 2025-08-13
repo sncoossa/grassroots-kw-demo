@@ -215,7 +215,7 @@ export default function IndicateInterestPage() {
             />
             <p className="text-custom-green/80 text-lg">
               Thank you for your interest in participating in local climate action! 
-              Please fill out the form below and we'll connect you with relevant opportunities.
+              Please fill out the form below and we&apos;ll connect you with relevant opportunities.
             </p>
           </div>
 

@@ -18,7 +18,6 @@ export function AvailabilityGrid({
   const [dragMode, setDragMode] = useState<'select' | 'deselect'>('select')
   const [dragStarted, setDragStarted] = useState(false)
   const [dragStart, setDragStart] = useState<{ day: string, timeSlot: string } | null>(null)
-  const [dragCurrent, setDragCurrent] = useState<{ day: string, timeSlot: string } | null>(null)
   const [initialDragState, setInitialDragState] = useState<AvailabilitySlot[]>([])
 
   const setAvailabilitySlot = (day: string, timeSlot: string, isSelected: boolean) => {
@@ -88,7 +87,6 @@ export function AvailabilityGrid({
     setDragStarted(true)
     setDragMode(newState ? 'select' : 'deselect')
     setDragStart({ day, timeSlot })
-    setDragCurrent({ day, timeSlot })
     
     // Set the initial slot
     setAvailabilitySlot(day, timeSlot, newState)
@@ -103,7 +101,6 @@ export function AvailabilityGrid({
     if (isScheduledEvent) return
     
     if (isDragging && dragStarted && dragStart) {
-      setDragCurrent({ day, timeSlot })
       selectRectangle(dragStart, { day, timeSlot }, dragMode)
     }
   }
@@ -124,7 +121,6 @@ export function AvailabilityGrid({
     if (isDragging) {
       setIsDragging(false)
       setDragStart(null)
-      setDragCurrent(null)
       setInitialDragState([]) // Clear the initial state
       // Small delay to prevent click event from firing after drag
       setTimeout(() => setDragStarted(false), 10)
@@ -141,13 +137,6 @@ export function AvailabilityGrid({
     document.addEventListener('mouseup', handleGlobalMouseUp)
     return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
   }, [])
-
-  const getSelectedAvailability = () => {
-    return availability
-      .filter(slot => slot.isSelected)
-      .map(slot => `${slot.day} - ${slot.timeSlot}`)
-      .join(', ')
-  }
 
   return (
     <div className="space-y-4">

@@ -16,7 +16,7 @@ export const parseActionTimeToSlots = (actionTime: string): string[] => {
   const timeRangeMatch = timeRange.match(/(\d{1,2}):?(\d{0,2})\s*(AM|PM)?\s*-\s*(\d{1,2}):?(\d{0,2})\s*(AM|PM)/i)
   
   if (timeRangeMatch) {
-    const [, startHour, startMin = '', startAMPM = '', endHour, endMin = '', endAMPM] = timeRangeMatch
+    const [, startHour, , startAMPM = '', endHour, , endAMPM] = timeRangeMatch
     
     // Convert to 24-hour format for easier calculation
     let start24 = parseInt(startHour)
@@ -90,7 +90,7 @@ export const generateCalendarInvite = (
       if (!isNaN(parsedDate.getTime())) {
         startDate = parsedDate
       }
-    } catch (error) {
+    } catch {
       console.warn('Could not parse date:', actionDate)
     }
   }

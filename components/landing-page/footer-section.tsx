@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
-import { addEmailToWaitlist, type EmailState } from "@/app/actions"
+import { type EmailState } from "@/app/actions"
 
 /**
  * Footer Section Component Props
@@ -30,7 +30,7 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
       <div className="container mx-auto px-8 text-center">
         {/* Call-to-action message */}
         <p className="mb-8 text-custom-green/80">
-          Interested? Enter your email below and you'll be the first to know when we launch!
+          Interested? Enter your email below and you&apos;ll be the first to know when we launch!
         </p>
 
         {/* Email signup form */}
@@ -61,7 +61,7 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
         
         {/* Organization branding */}
         <p className="mt-12 text-sm text-custom-green/60">
-          Built by Grassroots KW. We're a small team trying to make a big impact.
+          Built by Grassroots KW. We&apos;re a small team trying to make a big impact.
         </p>
       </div>
     </div>

@@ -21,7 +21,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
   }
 
   try {
-    const { data, error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
+    const { error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
 
     if (error) {
       if (error.code === "23505") {

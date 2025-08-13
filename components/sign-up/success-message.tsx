@@ -17,7 +17,7 @@ export function SuccessMessage({ isScheduledEvent }: SuccessMessageProps) {
               Thank You!
             </h1>
             <p className="text-custom-green/80 text-lg mb-6">
-              Your interest has been recorded successfully. We'll be in touch soon with more details about upcoming climate actions.
+              Your interest has been recorded successfully. We&apos;ll be in touch soon with more details about upcoming climate actions.
               {isScheduledEvent && (
                 <span className="block mt-2 text-sm">
                   📅 A Google Calendar invite should have opened in a new tab. If not, please check your pop-up blocker settings.
