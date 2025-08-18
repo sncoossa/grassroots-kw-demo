@@ -40,6 +40,7 @@
     "@radix-ui/react-tooltip": "latest",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "^10.4.20",
+    "aws-amplify": "^6.15.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "latest",
@@ -47,8 +48,11 @@
     "embla-carousel-react": "latest",
     "input-otp": "latest",
     "lucide-react": "^0.454.0",
-    "next": "15.2.4",
+
+    "next": "15.4.6",
+
     "next-auth": "^4.24.11",
+
     "next-themes": "latest",
     "react": "^19",
     "react-day-picker": "latest",

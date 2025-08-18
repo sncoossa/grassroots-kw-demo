@@ -26,11 +26,13 @@ interface FooterSectionProps {
  */
 export function FooterSection({ emailAction, isEmailPending, emailState }: FooterSectionProps) {
   return (
-    <div className="bg-custom-bg py-16">
+    <div className="bg-custom-highlight py-16">
       <div className="container mx-auto px-8 text-center">
         {/* Call-to-action message */}
         <p className="mb-8 text-custom-green/80">
-          Interested? Enter your email below and you&apos;ll be the first to know when we launch!
+
+          We believe climate action shouldn't feel lonely or confusing. Enter your email below to join our growing community of local changemakers.
+
         </p>
 
         {/* Email signup form */}
@@ -47,8 +49,8 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
             disabled={isEmailPending}
             className="bg-custom-green px-8 text-lg hover:bg-custom-green/90 font-instrument-serif"
           >
-            {/* Dynamic button text based on submission state */}
-            {isEmailPending ? "Submitting..." : "submit"} <ArrowRight className="ml-2 h-4 w-4" />
+            {isEmailPending ? "Submitting..." : "join"} <ArrowRight className="ml-2 h-4 w-4" />
+
           </Button>
         </form>
         
@@ -57,13 +59,14 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
           <p className={`mt-4 text-sm ${emailState.success ? "text-green-600" : "text-red-600"}`}>
             {emailState.message}
           </p>
-        )}
-        
+        )}     
         {/* Organization branding */}
         <p className="mt-12 text-sm text-custom-green/60">
           Built by Grassroots KW. We&apos;re a small team trying to make a big impact.
         </p>
+
       </div>
+      
     </div>
   )
 }
