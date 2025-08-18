@@ -45,10 +45,66 @@ create index if not exists action_interests_user_id_idx on action_interests(user
 alter table user_profiles enable row level security;
 alter table action_interests enable row level security;
 
--- Create RLS policies (temporarily permissive for debugging)
--- Allow all operations for now - you can tighten security later
-create policy "Allow all operations on user_profiles" on user_profiles for all using (true) with check (true);
-create policy "Allow all operations on action_interests" on action_interests for all using (true) with check (true);
+-- Create proper user-scoped RLS policies
+-- Note: These policies assume you have proper JWT authentication set up
+-- and that the user_id in the tables corresponds to the authenticated user's ID
+
+-- User Profiles Policies: Users can only access their own profile data
+create policy "Users can read own profile" on user_profiles 
+  for select using (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+create policy "Users can insert own profile" on user_profiles 
+  for insert with check (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+create policy "Users can update own profile" on user_profiles 
+  for update using (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  ) with check (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+-- Action Interests Policies: Users can only access their own action interests
+create policy "Users can read own interests" on action_interests 
+  for select using (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+create policy "Users can insert own interests" on action_interests 
+  for insert with check (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+create policy "Users can update own interests" on action_interests 
+  for update using (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  ) with check (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+-- Optional: Allow users to delete their own data
+create policy "Users can delete own profile" on user_profiles 
+  for delete using (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
+
+create policy "Users can delete own interests" on action_interests 
+  for delete using (
+    auth.uid()::text = user_id OR
+    auth.jwt() ->> 'sub' = user_id
+  );
 
 -- Create a function to automatically update the updated_at column
 create or replace function update_updated_at_column()

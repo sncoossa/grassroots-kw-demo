@@ -47,6 +47,7 @@ export function ProfileForm() {
       
       try {
         const profile = await profileService.getProfile(session.user.id)
+        console.log('Profile loaded from DB:', profile)
         
         // Set profile data with defaults from session
         setProfileData({
@@ -58,6 +59,7 @@ export function ProfileForm() {
           profileImage: profile?.profile_image || session.user.image || "",
         })
         
+        console.log('Profile image URL from DB:', profile?.profile_image)
         console.log('Profile loaded successfully:', profile ? 'existing profile' : 'new profile')
       } catch (error) {
         console.error("Error loading profile:", error)
@@ -87,17 +89,77 @@ export function ProfileForm() {
     }))
   }
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
+    if (file && session?.user?.id) {
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Please upload a valid image file (JPEG, PNG, or WebP)")
+        return
+      }
+      
+      // Validate file size (max 5MB)
+      const maxSize = 5 * 1024 * 1024 // 5MB in bytes
+      if (file.size > maxSize) {
+        toast.error("Image size must be less than 5MB")
+        return
+      }
+      
+      setIsLoading(true)
+      try {
+        // Create FormData for the API request
+        const formData = new FormData()
+        formData.append('file', file)
+        
+        console.log('Uploading file via API:', file.name, 'Size:', file.size)
+        
+        // Upload via API route
+        const response = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: formData,
+        })
+        
+        const result = await response.json()
+        
+        if (!response.ok) {
+          throw new Error(result.error || 'Upload failed')
+        }
+        
+        console.log('Upload successful:', result)
+        
         setProfileData(prev => ({
           ...prev,
-          profileImage: e.target?.result as string
+          profileImage: result.url
         }))
+        
+        toast.success("Image uploaded successfully!")
+        
+        // Automatically save the profile with the new image
+        try {
+          const saveResult = await profileService.upsertProfile(session.user.id, {
+            pronouns: profileData.pronouns,
+            phone: profileData.phone,
+            bio: profileData.bio,
+            profile_image: result.url,
+          })
+          
+          if (saveResult) {
+            console.log('Profile automatically saved with new image')
+            toast.success("Profile updated with new image!")
+          } else {
+            toast.error("Image uploaded but failed to save to profile")
+          }
+        } catch (saveError) {
+          console.error('Error auto-saving profile:', saveError)
+          toast.error("Image uploaded but failed to save to profile")
+        }
+      } catch (err) {
+        console.error('Image upload error:', err)
+        toast.error(`Image upload failed: ${err instanceof Error ? err.message : 'Unknown error'}`)
+      } finally {
+        setIsLoading(false)
       }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -106,12 +168,21 @@ export function ProfileForm() {
     
     setIsLoading(true)
     try {
+      console.log('Saving profile with data:', {
+        pronouns: profileData.pronouns,
+        phone: profileData.phone,
+        bio: profileData.bio,
+        profile_image: profileData.profileImage,
+      })
+      
       const result = await profileService.upsertProfile(session.user.id, {
         pronouns: profileData.pronouns,
         phone: profileData.phone,
         bio: profileData.bio,
         profile_image: profileData.profileImage,
       })
+      
+      console.log('Save result:', result)
       
       if (result) {
         toast.success("Profile updated successfully!")
@@ -182,7 +253,8 @@ export function ProfileForm() {
             />
           </div>
           <p className="text-sm text-muted-foreground text-center">
-            Click the camera icon to upload a new profile picture
+            Click the camera icon to upload a new profile picture<br />
+            <span className="text-xs">Supports JPEG, PNG, WebP • Max 5MB</span>
           </p>
         </div>
 
