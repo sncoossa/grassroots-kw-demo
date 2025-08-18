@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
@@ -22,13 +22,12 @@ import {
 } from "@/components/sign-up"
 
 /**
- * Indicate Your Interest Page
+ * Indicate Your Interest Page Component
  * 
- * This page allows users to express interest in specific actions/events.
- * Users can sign up for actions they want to participate in by providing
- * their contact information and motivation.
+ * This component handles the actual form logic and needs to be wrapped in Suspense
+ * because it uses useSearchParams()
  */
-export default function IndicateInterestPage() {
+function IndicateInterestForm() {
   const searchParams = useSearchParams()
   const { data: session } = useSession()
   const actionTitle = searchParams.get('title') || ''
@@ -266,5 +265,22 @@ export default function IndicateInterestPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+/**
+ * Main page component with Suspense boundary
+ * 
+ * Wraps the IndicateInterestForm in Suspense to handle useSearchParams()
+ */
+export default function IndicateInterestPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-custom-bg flex items-center justify-center">
+        <div className="text-custom-green">Loading...</div>
+      </div>
+    }>
+      <IndicateInterestForm />
+    </Suspense>
   )
 }
