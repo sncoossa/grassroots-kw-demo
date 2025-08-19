@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { config } from '@/lib/config'
+import { logger } from '@/lib/logger'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -15,6 +17,11 @@ const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
 
 export async function POST(request: NextRequest) {
   try {
+    // Environment info for debugging
+    if (process.env.NODE_ENV === 'development') {
+      logger.log('Upload API - Environment:', config.getEnvironmentInfo())
+    }
+    
     // Check authentication
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) {
@@ -46,7 +53,7 @@ export async function POST(request: NextRequest) {
     const fileName = `${session.user.id}-${Date.now()}.${fileExt}`
 
     // Upload to Supabase Storage using admin client
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from('profile-images')
       .upload(fileName, file, {
         cacheControl: '3600',

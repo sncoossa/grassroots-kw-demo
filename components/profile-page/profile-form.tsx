@@ -9,8 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Camera, Save, User } from "lucide-react"
 import { useSession } from "next-auth/react"
-import { profileService } from "@/lib/supabase"
 import { toast } from "sonner"
+import { logger } from "@/lib/logger"
 
 interface ProfileData {
   name: string
@@ -38,29 +38,46 @@ export function ProfileForm() {
   useEffect(() => {
     const loadProfile = async () => {
       if (!session?.user?.id) {
-        console.log('No session or user ID available')
+        logger.log('No session or user ID available')
         return
       }
       
-      console.log('Loading profile for session:', session.user)
+      logger.log('Loading profile for session:', session.user)
       setIsLoadingProfile(true)
       
       try {
-        const profile = await profileService.getProfile(session.user.id)
-        console.log('Profile loaded from DB:', profile)
+        // Use API route for profile loading
+        const response = await fetch('/api/profile')
+        const data = await response.json()
         
-        // Set profile data with defaults from session
-        setProfileData({
-          name: session.user.name || "",
-          pronouns: profile?.pronouns || "",
-          email: session.user.email || "",
-          phone: profile?.phone || "",
-          bio: profile?.bio || "",
-          profileImage: profile?.profile_image || session.user.image || "",
-        })
-        
-        console.log('Profile image URL from DB:', profile?.profile_image)
-        console.log('Profile loaded successfully:', profile ? 'existing profile' : 'new profile')
+        if (response.ok) {
+          const profile = data.profile
+          logger.log('Profile loaded from API:', profile)
+          
+          // Set profile data with defaults from session
+          setProfileData({
+            name: session.user.name || "",
+            pronouns: profile?.pronouns || "",
+            email: session.user.email || "",
+            phone: profile?.phone || "",
+            bio: profile?.bio || "",
+            profileImage: profile?.profile_image || session.user.image || "",
+          })
+          
+          logger.log('Profile image URL from API:', profile?.profile_image)
+          logger.log('Profile loaded successfully:', profile ? 'existing profile' : 'new profile')
+        } else {
+          logger.log('No existing profile found, using session data')
+          // Set basic data from session if no profile exists
+          setProfileData({
+            name: session.user.name || "",
+            pronouns: "",
+            email: session.user.email || "",
+            phone: "",
+            bio: "",
+            profileImage: session.user.image || "",
+          })
+        }
       } catch (error) {
         console.error("Error loading profile:", error)
         // Don't show toast error for debugging - just log
@@ -112,7 +129,7 @@ export function ProfileForm() {
         const formData = new FormData()
         formData.append('file', file)
         
-        console.log('Uploading file via API:', file.name, 'Size:', file.size)
+        logger.log('Uploading file via API:', file.name, 'Size:', file.size)
         
         // Upload via API route
         const response = await fetch('/api/upload-image', {
@@ -126,7 +143,7 @@ export function ProfileForm() {
           throw new Error(result.error || 'Upload failed')
         }
         
-        console.log('Upload successful:', result)
+        logger.log('Upload successful:', result)
         
         setProfileData(prev => ({
           ...prev,
@@ -137,17 +154,25 @@ export function ProfileForm() {
         
         // Automatically save the profile with the new image
         try {
-          const saveResult = await profileService.upsertProfile(session.user.id, {
-            pronouns: profileData.pronouns,
-            phone: profileData.phone,
-            bio: profileData.bio,
-            profile_image: result.url,
+          const saveResponse = await fetch('/api/profile', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              pronouns: profileData.pronouns,
+              phone: profileData.phone,
+              bio: profileData.bio,
+              profile_image: result.url,
+            }),
           })
-          
-          if (saveResult) {
-            console.log('Profile automatically saved with new image')
+
+          if (saveResponse.ok) {
+            logger.log('Profile automatically saved with new image')
             toast.success("Profile updated with new image!")
           } else {
+            const errorData = await saveResponse.json()
+            console.error('Auto-save error:', errorData)
             toast.error("Image uploaded but failed to save to profile")
           }
         } catch (saveError) {
@@ -168,30 +193,39 @@ export function ProfileForm() {
     
     setIsLoading(true)
     try {
-      console.log('Saving profile with data:', {
+      logger.log('Saving profile with data:', {
         pronouns: profileData.pronouns,
         phone: profileData.phone,
         bio: profileData.bio,
         profile_image: profileData.profileImage,
       })
       
-      const result = await profileService.upsertProfile(session.user.id, {
-        pronouns: profileData.pronouns,
-        phone: profileData.phone,
-        bio: profileData.bio,
-        profile_image: profileData.profileImage,
+      // Use API route for profile operations
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pronouns: profileData.pronouns,
+          phone: profileData.phone,
+          bio: profileData.bio,
+          profile_image: profileData.profileImage,
+        }),
       })
-      
-      console.log('Save result:', result)
-      
-      if (result) {
-        toast.success("Profile updated successfully!")
-      } else {
-        toast.error("Failed to update profile")
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to update profile')
       }
+
+      const result = await response.json()
+      logger.log('Save result:', result)
+      
+      toast.success("Profile updated successfully!")
     } catch (error) {
       console.error("Error saving profile:", error)
-      toast.error("Failed to update profile")
+      toast.error(error instanceof Error ? error.message : "Failed to update profile")
     } finally {
       setIsLoading(false)
     }

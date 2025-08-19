@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 /**
  * Hero Section Component
@@ -13,10 +14,12 @@ export function HeroSection() {
 
     <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center bg-custom-bg rounded">
       <div className="flex flex-col items-center mb-5">
-        <img
+        <Image
           src="/gkw-logo-vector.png"
           alt="Grassroots KW Logo"
-          className="mb-5 w-12 h-11 mx-auto"
+          width={48}
+          height={44}
+          className="mb-5 mx-auto"
         />
         <div className="flex items-center justify-center gap-2 text-sm">
           <span className="flex items-center gap-2 bg-custom-highlight px-2 py-1 rounded text-custom-green/70">
@@ -44,9 +47,11 @@ export function HeroSection() {
         <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Build community while doing good.</p>
 
       </div>
-      <img
+      <Image
           src="/homepage-image.png"
           alt="Homepage"
+          width={300}
+          height={200}
           className="mx-auto my-4 max-w-xs"
         />
     </div>
