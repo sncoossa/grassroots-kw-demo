@@ -91,7 +91,7 @@ export function EnvironmentTest() {
       <div className="space-y-4">
         <div>
           <p className="text-sm text-gray-600 mb-2">
-            Current Environment: <strong>{window.location.origin}</strong>
+            Current Environment: <strong>{origin || "Unknown"}</strong>
           </p>
           <p className="text-sm text-gray-600 mb-4">
             User: <strong>{session.user.email}</strong>
