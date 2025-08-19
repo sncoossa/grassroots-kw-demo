@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       updated_at: new Date().toISOString()
     }
 
-    logger.log('API: Upserting profile data:', { userId: session.user.id, upsertData })
+    logger.log('API: Upserting profile data', { userId: session.user.id, upsertedFields: Object.keys(upsertData) })
 
     // Use admin client for upsert operations to bypass RLS issues
     const client = supabaseAdmin || supabase
