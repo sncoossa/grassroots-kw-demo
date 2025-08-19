@@ -92,7 +92,7 @@ export const profileService = {
         updated_at: new Date().toISOString()
       }
       
-            logger.log('Upserting profile data:', { userId, upsertData })
+            logger.log('Upserting profile data:', { userId, updatedFields: Object.keys(profileData) })
       
       // Use service role client for upsert operations to bypass RLS issues
       const client = supabaseAdmin || supabase
