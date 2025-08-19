@@ -1,11 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
+import { logger } from './logger'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 // Only log configuration in development to avoid exposing sensitive info in production
 if (process.env.NODE_ENV === 'development') {
-  console.log('Supabase config:', { 
+  logger.log('Supabase config:', { 
     url: supabaseUrl, 
     keyPreview: supabaseAnonKey.substring(0, 20) + '...' 
   })
@@ -91,6 +92,8 @@ export const profileService = {
         updated_at: new Date().toISOString()
       }
       
+            logger.log('Upserting profile data:', { userId, updatedFields: Object.keys(profileData) })
+      
       // Use service role client for upsert operations to bypass RLS issues
       const client = supabaseAdmin || supabase
       const { data, error } = await client
@@ -105,15 +108,20 @@ export const profileService = {
         console.error('Profile upsert error:', {
           message: error.message,
           code: error.code,
-          usingAdmin: !!supabaseAdmin
+          details: error.details,
+          hint: error.hint,
+          usingAdmin: !!supabaseAdmin,
+          fullError: error
         })
-        throw new Error(`Profile upsert failed: ${error.message || 'Unknown error'}`)
+        throw new Error(`Profile upsert failed: ${error.message || error.code || 'Unknown error'}`)
       }
       
+      logger.log('Profile upsert successful:', data)
       return data
     } catch (error) {
       console.error('Unexpected error in upsertProfile:', error)
-      return null
+      // Re-throw the error instead of returning null so the calling code can handle it
+      throw error
     }
   },
 

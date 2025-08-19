@@ -9,20 +9,20 @@ import { ProfileButton } from "../profile-page/profile-button"
  */
 export function HeaderBanner() {
   return (
-
-    <div className="bg-custom-highlight p-4 rounded/80 py-3 px-4 text-center text-sm text-custom-green border-b border-custom-green/20">
-
-      {/* Profile button positioned in top right */}
-      <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-        <ProfileButton />
+    <div className="relative bg-custom-highlight py-4 px-4 text-center text-sm text-custom-green border-b border-custom-green/20 flex items-center justify-center min-h-[3rem]">
+      {/* Main banner content */}
+      <div>
+        Are you a climate non-profit in the KW region? We think we can help.{" "}
+        <a href="mailto:info@grassrootskw.org" className="underline hover:no-underline">
+          Contact us
+        </a>{" "}
+        to learn more
       </div>
       
-      {/* Main banner content */}
-      Are you a climate non-profit in the KW region? We think we can help.{" "}
-      <a href="mailto:info@grassrootskw.org" className="underline hover:no-underline">
-        Contact us
-      </a>{" "}
-      to learn more
+      {/* Profile button positioned in top right, within the banner */}
+      <div className="absolute right-4 flex items-center h-full">
+        <ProfileButton />
+      </div>
     </div>
   )
 }
