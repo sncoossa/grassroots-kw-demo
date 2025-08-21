@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server'
 
 export async function GET() {
+  // Only allow this endpoint in development environment
+  if (process.env.NODE_ENV !== 'development') {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   try {
     const envCheck = {
       NODE_ENV: process.env.NODE_ENV,

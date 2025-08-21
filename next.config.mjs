@@ -10,7 +10,7 @@ const nextConfig = {
     unoptimized: true,
   },
   env: {
-    NEXTAUTH_URL: process.env.NODE_ENV === 'production' ? 'https://grassrootskw.org' : process.env.NEXTAUTH_URL,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL || (process.env.NODE_ENV === 'production' ? process.env.NEXTAUTH_URL_PRODUCTION : undefined),
   },
 }
 
