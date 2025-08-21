@@ -3,11 +3,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        - npm install -g pnpm
+        - pnpm install --frozen-lockfile
     build:
       commands:
         - echo "Building for production with NODE_ENV=$NODE_ENV"
-        - npm run build
+        - pnpm run build
   artifacts:
     baseDirectory: .next
     files:
