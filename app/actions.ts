@@ -16,25 +16,33 @@ export interface EmailState {
 export async function addEmailToWaitlist(_prevState: EmailState | null, formData: FormData): Promise<EmailState> {
   const email = formData.get("email") as string
 
+  // Validate email input
   if (!email || !email.includes("@")) {
     return { success: false, message: "Please enter a valid email address." }
   }
 
+  // Check if environment variables are available
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    return { success: false, message: "Service configuration error. Please try again later." }
+  }
+
   try {
-    const { error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
+    const { data, error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
 
     if (error) {
       if (error.code === "23505") {
         // Unique violation code
         return { success: false, message: "This email is already on the waitlist!" }
       }
-      console.error("Error inserting email:", error)
+      if (error.code === "42501") {
+        // RLS policy violation
+        return { success: false, message: "Database access error. Please contact support." }
+      }
       return { success: false, message: "Failed to add email to waitlist. Please try again." }
     }
 
     return { success: true, message: "Thanks for joining the waitlist!" }
   } catch (error) {
-    console.error("Unexpected error:", error)
     return { success: false, message: "An unexpected error occurred. Please try again." }
   }
 }

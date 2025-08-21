@@ -4,11 +4,22 @@ import type { Session } from "next-auth"
 import type { JWT } from "next-auth/jwt"
 import type { Account } from "next-auth"
 
+// Validate required environment variables
+if (!process.env.GOOGLE_CLIENT_ID) {
+  throw new Error('GOOGLE_CLIENT_ID environment variable is required')
+}
+if (!process.env.GOOGLE_CLIENT_SECRET) {
+  throw new Error('GOOGLE_CLIENT_SECRET environment variable is required')
+}
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error('NEXTAUTH_SECRET environment variable is required')
+}
+
 export const authOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   callbacks: {
@@ -28,8 +39,23 @@ export const authOptions = {
   pages: {
     signIn: '/auth/signin',
   },
-  // Use dynamic URL configuration
-  ...(config.isProduction() && { 
-    url: config.getBaseUrl() 
+  // Add production-specific configuration
+  debug: process.env.NODE_ENV === 'development',
+  useSecureCookies: process.env.NODE_ENV === 'production',
+  cookies: {
+    sessionToken: {
+      name: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  // Use environment variable for URL configuration
+  ...(process.env.NODE_ENV === 'production' && process.env.NEXTAUTH_URL && {
+    url: process.env.NEXTAUTH_URL
   }),
 }
