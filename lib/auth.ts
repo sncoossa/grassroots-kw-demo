@@ -54,4 +54,8 @@ export const authOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
+  // Explicitly set the URL for production
+  ...(process.env.NODE_ENV === 'production' && {
+    url: process.env.NEXTAUTH_URL || 'https://grassrootskw.org'
+  }),
 }
