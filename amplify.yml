@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - echo "Building for production with NODE_ENV=$NODE_ENV"
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
+  environment:
+    variables:
+      NODE_ENV: production
+      _LIVE_UPDATES: '[{"name":"Next.js","pkg":"next","type":"framework","version":"15.4.6"}]'
