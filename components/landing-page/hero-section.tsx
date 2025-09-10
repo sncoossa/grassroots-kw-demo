@@ -12,20 +12,21 @@ import Image from "next/image"
 export function HeroSection() {
   return (
 
-    <div className="container mx-auto px-8 py-16 text-center flex flex-col items-center bg-custom-bg rounded">
-      <div className="flex flex-col items-center mb-5">
+    <div className="container mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24 text-center flex flex-col items-center justify-center bg-custom-bg rounded min-h-[80vh] sm:min-h-[85vh] md:min-h-[90vh]">
+      <div className="flex flex-col items-center mb-8 sm:mb-12 md:mb-16">
         <Image
           src="/gkw-logo-vector.png"
           alt="Grassroots KW Logo"
           width={48}
           height={44}
-          className="mb-5 mx-auto"
+          className="mb-4 sm:mb-6 mx-auto w-10 h-9 sm:w-12 sm:h-11 md:w-14 md:h-13"
         />
-        <div className="flex items-center justify-center gap-2 text-sm">
-          <span className="flex items-center gap-2 bg-custom-highlight px-2 py-1 rounded text-custom-green/70">
+        <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
+          <span className="flex items-center gap-1 sm:gap-2 bg-custom-highlight px-2 py-1 rounded text-custom-green/70 text-center">
 
-        <ArrowRight className="h-4 w-4" />
-        Funded by the{" "}
+        <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+        <span className="hidden sm:inline">Funded by the{" "}</span>
+        <span className="sm:hidden">YCAF funded{" "}</span>
         <a
           href="https://www.kitchener.ca/en/taxes-utilities-and-finance/bloomberg-youth-climate-action-fund.aspx#Hope:~:text=eco%2Dfriendly%20practices.-,Hope%20to%20Action%3A%20Strategic%20Research%20Foundations,-%2D%20Despite%20a%20vibrant"
           target="_blank"
@@ -39,12 +40,12 @@ export function HeroSection() {
       </div>
 
         {/* Main title */}
-      <h1 className="mb-6 text-9xl font-instrument-serif tracking-tighter text-custom-green">grassroots.kw</h1>
+      <h1 className="mb-8 sm:mb-10 md:mb-12 text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-instrument-serif tracking-tighter text-custom-green leading-none px-2">grassroots.kw</h1>
         
         {/* Value proposition */}
-      <div className="mb-8 space-y-1">
-        <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Discover real local initiatives you can support.</p>
-        <p className="text-lg leading-5 tracking-tighter text-custom-green/80">Build community while doing good.</p>
+      <div className="mb-6 sm:mb-8 space-y-1 px-4 sm:px-0">
+        <p className="text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Discover real local initiatives you can support.</p>
+        <p className="text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Build community while doing good.</p>
 
       </div>
       <Image
@@ -52,7 +53,7 @@ export function HeroSection() {
           alt="Homepage"
           width={300}
           height={200}
-          className="mx-auto my-4 max-w-xs"
+          className="mx-auto my-4 max-w-xs w-full h-auto"
         />
     </div>
   )
