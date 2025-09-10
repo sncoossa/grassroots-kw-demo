@@ -188,12 +188,12 @@ function IndicateInterestForm() {
 
   return (
     <div className="min-h-screen bg-custom-bg">
-      <div className="container mx-auto px-8 py-16">
-        <div className="max-w-2xl mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+        <div className="max-w-4xl mx-auto">
           {/* Back button */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <Link href="/">
-              <Button variant="outline" className="border-custom-green text-custom-green hover:bg-custom-green hover:text-custom-bg">
+              <Button variant="outline" className="border-custom-green text-custom-green hover:bg-custom-green hover:text-custom-bg text-sm sm:text-base">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Actions
               </Button>
@@ -201,8 +201,8 @@ function IndicateInterestForm() {
           </div>
 
           {/* Page header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-instrument-serif text-custom-green mb-4">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-instrument-serif text-custom-green mb-3 sm:mb-4">
               Indicate Your Interest
             </h1>
             <ActionDetailsCard 
@@ -212,14 +212,14 @@ function IndicateInterestForm() {
               actionLocation={actionLocation}
               isScheduledEvent={isScheduledEvent}
             />
-            <p className="text-custom-green/80 text-lg">
+            <p className="text-custom-green/80 text-base sm:text-lg leading-relaxed">
               Thank you for your interest in participating in local climate action! 
               Please fill out the form below and we&apos;ll connect you with relevant opportunities.
             </p>
           </div>
 
           {/* Interest form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <ContactForm 
               formData={formData}
               onInputChange={handleInputChange}
@@ -236,7 +236,7 @@ function IndicateInterestForm() {
             <Button 
               type="submit" 
               disabled={isSubmitting}
-              className="w-full bg-custom-green text-custom-bg hover:bg-custom-green/90 font-medium py-3"
+              className="w-full bg-custom-green text-custom-bg hover:bg-custom-green/90 font-medium py-3 sm:py-4 text-base sm:text-lg"
             >
               {isSubmitting ? (
                 "Submitting..."
@@ -257,8 +257,8 @@ function IndicateInterestForm() {
           </form>
 
           {/* Additional info */}
-          <div className="mt-8 text-center">
-            <p className="text-custom-green/60 text-sm">
+          <div className="mt-6 sm:mt-8 text-center px-4">
+            <p className="text-custom-green/60 text-xs sm:text-sm leading-relaxed">
               We respect your privacy and will only use this information to connect you with relevant climate action opportunities.
             </p>
           </div>

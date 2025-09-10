@@ -1,5 +1,4 @@
 import GoogleProvider from "next-auth/providers/google"
-import { config } from "./config"
 import type { Session } from "next-auth"
 import type { JWT } from "next-auth/jwt"
 import type { Account } from "next-auth"

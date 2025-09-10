@@ -19,9 +19,9 @@ export function ActionDetailsCard({
   if (!actionTitle) return null
 
   return (
-    <Card className="mb-4 p-4 bg-custom-green/10 border border-custom-green/30">
+    <Card className="mb-4 p-3 sm:p-4 bg-custom-green/10 border border-custom-green/30">
       <CardContent className="p-0">
-        <h2 className="text-xl font-instrument-serif text-custom-green mb-2">
+        <h2 className="text-lg sm:text-xl font-instrument-serif text-custom-green mb-2 leading-tight">
           {actionTitle}
         </h2>
         <div className="text-sm text-custom-green/80 space-y-1">
@@ -30,9 +30,9 @@ export function ActionDetailsCard({
           {actionLocation && <p><strong>Location:</strong> {actionLocation}</p>}
         </div>
         {isScheduledEvent && (
-          <p className="text-xs text-custom-green/60 mt-2 flex items-center">
-            <Lock className="h-3 w-3 mr-1" />
-            This event has a set schedule. Availability selection is pre-filled and locked.
+          <p className="text-xs text-custom-green/60 mt-2 flex items-start sm:items-center">
+            <Lock className="h-3 w-3 mr-1 mt-0.5 sm:mt-0 flex-shrink-0" />
+            <span>This event has a set schedule. Availability selection is pre-filled and locked.</span>
           </p>
         )}
         {actionTime && !isScheduledEvent && (
