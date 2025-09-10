@@ -1,30 +1,10 @@
 # Grassroots KW
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+## 1. git clone https://github.com/sncoossa/grassroots-kw-demo
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/grassroots-kw/v0-grassroots-kw)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/kLYUjktpr5L)
 
-## Overview
+## 2. pnpm install
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
 
-## Deployment
+## 3. pnpm dev
 
-Your project is live at:
-
-**[https://vercel.com/grassroots-kw/v0-grassroots-kw](https://vercel.com/grassroots-kw/v0-grassroots-kw)**
-
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/kLYUjktpr5L](https://v0.dev/chat/projects/kLYUjktpr5L)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
