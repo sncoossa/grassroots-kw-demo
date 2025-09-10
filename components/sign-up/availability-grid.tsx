@@ -181,7 +181,7 @@ export function AvailabilityGrid({
                 {/* Time slots */}
                 {TIME_SLOTS.map((timeSlot) => (
                   <div key={timeSlot} className="grid grid-cols-3 gap-1 mb-2">
-                    <div className="text-[10px] sm:text-xs text-custom-green/70 flex items-center justify-start pr-2">
+                    <div className="text-xs text-custom-green/70 flex items-center justify-start pr-2">
                       <span className="whitespace-nowrap">{timeSlot}</span>
                     </div>
                     
