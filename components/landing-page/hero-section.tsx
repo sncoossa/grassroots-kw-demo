@@ -19,7 +19,7 @@ export function HeroSection() {
           alt="Grassroots KW Logo"
           width={48}
           height={44}
-          className="mb-4 sm:mb-6 mx-auto w-10 h-9 sm:w-12 sm:h-11 md:w-14 md:h-13"
+          className="mb-4 sm:mb-6 mx-auto w-10 h-9 sm:w-12 sm:h-11 md:w-14 md:h-12"
         />
         <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
           <span className="flex items-center gap-1 sm:gap-2 bg-custom-highlight px-2 py-1 rounded text-custom-green/70 text-center">
