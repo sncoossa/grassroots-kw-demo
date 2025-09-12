@@ -10,7 +10,7 @@ export function ActionsGrid({ actions, loading }: ActionsGridProps) {
   if (loading) {
     return (
       <div className="text-center py-12">
-        <p className="text-custom-bg/70">Loading actions...</p>
+        <p className="text-custom-bg/70 font-switzer">Loading actions...</p>
       </div>
     )
   }
@@ -18,7 +18,7 @@ export function ActionsGrid({ actions, loading }: ActionsGridProps) {
   if (actions.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-custom-bg/70">
+        <p className="text-custom-bg/70 font-switzer">
           No actions match your current criteria. Try adjusting your preferences above.
         </p>
       </div>

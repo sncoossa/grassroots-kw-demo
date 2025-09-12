@@ -22,7 +22,7 @@ export function FilterSlider({ title, options, value, onChange }: FilterSliderPr
           className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer slider"
         />
       </div>
-      <p className="mt-2 text-sm text-custom-bg/70">{value}</p>
+      <p className="mt-2 text-sm font-switzer text-custom-bg/70">{value}</p>
     </div>
   )
 }

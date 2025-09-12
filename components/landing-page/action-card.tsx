@@ -10,12 +10,12 @@ export function ActionCard({ action }: ActionCardProps) {
   return (
     <Card className="bg-custom-highlight border-bg-custom-highlight/30">
       <CardHeader>
-        <CardTitle className="text-custom-green text-lg font-instrument-serif">
+        <CardTitle className="text-custom-green font-instrument-serif text-xl leading-7">
           {action.title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <div className="text-sm text-custom-green/70">
+        <div className="text-sm font-switzer text-custom-green/70">
           <p>
             <strong>Date:</strong> {action.displayDate}
           </p>

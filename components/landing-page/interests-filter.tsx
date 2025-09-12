@@ -19,7 +19,7 @@ export function InterestsFilter({
       <select
         onChange={onInterestsChange}
         value=""
-        className="w-full p-3 border border-custom-bg/30 rounded-lg bg-custom-bg text-custom-green focus:outline-none focus:ring-2 focus:ring-custom-bg"
+        className="w-full p-3 border border-custom-bg/30 rounded-lg font-switzer bg-custom-bg text-custom-green focus:outline-none focus:ring-2 focus:ring-custom-bg"
       >
         <option value="">Select your interests...</option>
         {interests.map((interest) => (
@@ -49,7 +49,7 @@ export function InterestsFilter({
             ))}
           </div>
         ) : (
-          <p className="text-sm text-custom-bg/70">No interests selected</p>
+          <p className="text-sm font-switzer text-custom-bg/70">No interests selected</p>
         )}
       </div>
     </div>
