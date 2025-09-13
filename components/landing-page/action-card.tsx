@@ -1,31 +1,62 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ExternalLink } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ExternalLink, UserPlus } from "lucide-react"
+import Link from "next/link"
 import type { ActionItem } from "@/lib/csv-data"
 
+/**
+ * Action Card Component Props
+ */
 interface ActionCardProps {
-  action: ActionItem
+  action: ActionItem  // The action data to display
 }
 
+/**
+ * Action Card Component
+ * 
+ * Displays an individual action/event in a card format including:
+ * - Action title
+ * - Date, time, and location information
+ * - Optional external link with "Learn more" text
+ * 
+ * Used within the ActionsGrid to show filtered results.
+ */
 export function ActionCard({ action }: ActionCardProps) {
   return (
     <Card className="bg-custom-highlight border-bg-custom-highlight/30">
       <CardHeader>
+        {/* Action title */}
         <CardTitle className="text-custom-green font-instrument-serif text-xl leading-7">
           {action.title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <div className="text-sm font-switzer text-custom-green/70">
-          <p>
-            <strong>Date:</strong> {action.displayDate}
-          </p>
-          <p>
-            <strong>Time:</strong> {action.time}
-          </p>
-          <p>
-            <strong>Location:</strong> {action.location}
-          </p>
+        {/* Action details and sign up button */}
+        <div className="flex items-start justify-between gap-4 pr-2">
+          <div className="text-sm font-switzer text-custom-green/70 flex-1">
+            <p>
+              <strong>Date:</strong> {action.displayDate}
+            </p>
+            <p>
+              <strong>Time:</strong> {action.time}
+            </p>
+            <p>
+              <strong>Location:</strong> {action.location}
+            </p>
+          </div>
+          
+          {/* Circular sign up button */}
+          <Link href={`/sign-up/indicate-interest?title=${encodeURIComponent(action.title)}&date=${encodeURIComponent(action.displayDate)}&time=${encodeURIComponent(action.time)}&location=${encodeURIComponent(action.location)}`}>
+            <Button 
+              className="bg-custom-green text-custom-bg hover:bg-custom-green/90 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0"
+              size="sm"
+            >
+              <UserPlus className="h-5 w-5" />
+            </Button>
+          </Link>
         </div>
+        
+        {/* Optional external link */}
         {action.link && (
           <a
             href={action.link}

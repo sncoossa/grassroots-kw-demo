@@ -1,12 +1,23 @@
 import type React from "react"
 
+/**
+ * Interests Filter Component Props
+ */
 interface InterestsFilterProps {
-  interests: string[]
-  selectedInterests: string[]
-  onInterestsChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
-  onRemoveInterest: (interest: string) => void
+  interests: string[]                                        // Available interest options
+  selectedInterests: string[]                                // Currently selected interests
+  onInterestsChange: (event: React.ChangeEvent<HTMLSelectElement>) => void  // Handler for adding interests
+  onRemoveInterest: (interest: string) => void              // Handler for removing interests
 }
 
+/**
+ * Interests Filter Component
+ * 
+ * Provides functionality for users to:
+ * - Select interests from a dropdown menu
+ * - View currently selected interests as removable tags
+ * - Remove interests by clicking the × button
+ */
 export function InterestsFilter({ 
   interests, 
   selectedInterests, 
@@ -15,7 +26,10 @@ export function InterestsFilter({
 }: InterestsFilterProps) {
   return (
     <div>
+      {/* Section title */}
       <h3 className="mb-4 text-2xl font-instrument-serif text-custom-bg">Interests</h3>
+      
+      {/* Dropdown for selecting new interests */}
       <select
         onChange={onInterestsChange}
         value=""
@@ -29,7 +43,7 @@ export function InterestsFilter({
         ))}
       </select>
 
-      {/* Selected Interests */}
+      {/* Display selected interests as removable tags */}
       <div className="mt-2 space-y-1">
         {selectedInterests.length > 0 ? (
           <div className="flex flex-wrap gap-2">
@@ -39,9 +53,11 @@ export function InterestsFilter({
                 className="inline-flex items-center gap-1 px-2 py-1 bg-custom-highlight text-custom-green text-xs rounded-full"
               >
                 {interest}
+                {/* Remove interest button */}
                 <button
                   onClick={() => onRemoveInterest(interest)}
                   className="ml-1 text-custom-green hover:text-custom-green/70"
+                  aria-label={`Remove ${interest} interest`}
                 >
                   ×
                 </button>
@@ -49,6 +65,7 @@ export function InterestsFilter({
             ))}
           </div>
         ) : (
+          /* Empty state message */
           <p className="text-sm font-switzer text-custom-bg/70">No interests selected</p>
         )}
       </div>

@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 import { Instrument_Serif } from "next/font/google"
+import { Providers } from "@/components/providers"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -10,6 +11,7 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXTAUTH_URL || 'https://grassrootskw.org'),
   title: "Grassroots KW",
   description: "Real action. Real community.",
   generator: "v0.dev",
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Grassroots KW",
     images: [
       {
-        url: "/placeholder.svg?height=630&width=1200", // Placeholder image for social sharing
+        url: "/grassroots-kw-full-logo-png.png", // Use actual logo from public folder
         width: 1200,
         height: 630,
         alt: "Grassroots KW Logo",
@@ -36,8 +38,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={instrumentSerif.variable}>
-      <body>{children}</body>
+    <html lang="en" className={instrumentSerif.variable} suppressHydrationWarning>
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   )
 }
