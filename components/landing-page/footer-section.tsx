@@ -29,10 +29,8 @@ export function FooterSection({ emailAction, isEmailPending, emailState }: Foote
     <div className="bg-custom-highlight py-16">
       <div className="container mx-auto px-8 text-center">
         {/* Call-to-action message */}
-        <p className="mb-8 text-custom-green/80">
-
-          We believe climate action shouldn&apos;t feel lonely or confusing. Enter your email below to join our growing community of local changemakers.
-
+        <p className="mb-8 text-custom-green/80 font-switzer text-lg leading-5 tracking-tighter">
+          We believe climate action shouldn't feel lonely or confusing. Enter your email below to join our growing community of local changemakers.
         </p>
 
         {/* Email signup form */}

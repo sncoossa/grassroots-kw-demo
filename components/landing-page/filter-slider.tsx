@@ -37,7 +37,7 @@ export function FilterSlider({ title, options, value, onChange }: FilterSliderPr
       </div>
       
       {/* Current value display */}
-      <p className="mt-2 text-sm text-custom-bg/70">{value}</p>
+      <p className="mt-2 text-sm font-switzer text-custom-bg/70">{value}</p>
     </div>
   )
 }
