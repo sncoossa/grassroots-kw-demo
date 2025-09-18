@@ -36,7 +36,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
       }
       if (error.code === "42501") {
         // RLS policy violation
-        return { success: false, message: "Database access error. Please contact support." }
+        return { success: false, message: "Database access error. Please contact support at info@grassrootskw.org." }
       }
       return { success: false, message: "Failed to add email to waitlist. Please try again." }
     }
