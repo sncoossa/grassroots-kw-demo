@@ -27,7 +27,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
   }
 
   try {
-    const { data, error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
+    const { error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
 
     if (error) {
       if (error.code === "23505") {
@@ -42,7 +42,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
     }
 
     return { success: true, message: "Thanks for joining the waitlist!" }
-  } catch (error) {
+  } catch {
     return { success: false, message: "An unexpected error occurred. Please try again." }
   }
 }

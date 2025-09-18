@@ -1,13 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, LogOut } from "lucide-react"
-import { useSession, signOut } from "next-auth/react"
+import { ArrowLeft } from "lucide-react"
+import { signOut } from "next-auth/react"
 import Link from "next/link"
 
 export function ProfileHeader() {
-  const { data: session } = useSession()
-
   return (
     <div className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
       <div className="w-full px-4 py-4">
