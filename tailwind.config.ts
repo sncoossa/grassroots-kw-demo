@@ -21,7 +21,9 @@ const config: Config = {
     extend: {
       fontFamily: {
         "instrument-serif": ["Instrument Serif", "serif"],
+        "switzer": ["Switzer Variable", "sans-serif"],
       },
+
       colors: {
         "custom-bg": "#FEFEF9",
         "custom-green": "#204C0A",

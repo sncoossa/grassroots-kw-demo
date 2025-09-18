@@ -26,14 +26,14 @@ export function ActionCard({ action }: ActionCardProps) {
     <Card className="bg-custom-highlight border-bg-custom-highlight/30">
       <CardHeader>
         {/* Action title */}
-        <CardTitle className="text-custom-green text-lg font-instrument-serif">
+        <CardTitle className="text-custom-green font-instrument-serif text-xl leading-7">
           {action.title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         {/* Action details and sign up button */}
         <div className="flex items-start justify-between gap-4 pr-2">
-          <div className="text-sm text-custom-green/70 flex-1">
+          <div className="text-sm font-switzer text-custom-green/70 flex-1">
             <p>
               <strong>Date:</strong> {action.displayDate}
             </p>

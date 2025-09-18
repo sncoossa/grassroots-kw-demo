@@ -33,7 +33,7 @@ export function HeroSection() {
           rel="noopener noreferrer"
           className="underline hover:no-underline"
         >
-          Youth Climate Action Fund (YCAF)
+        Youth Climate Action Fund (YCAF)
         </a>
           </span>
         </div>
@@ -44,8 +44,8 @@ export function HeroSection() {
         
         {/* Value proposition */}
       <div className="mb-6 sm:mb-8 space-y-1 px-4 sm:px-0">
-        <p className="text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Discover real local initiatives you can support.</p>
-        <p className="text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Build community while doing good.</p>
+        <p className="font-switzer text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">You care about our planet but don't know where to start.</p>
+        <p className="font-switzer text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Let's change that.</p>
 
       </div>
       <Image
