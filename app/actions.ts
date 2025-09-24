@@ -27,7 +27,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
   }
 
   try {
-    const { data, error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
+    const { error } = await supabase.from("waitlist_emails").insert([{ email }]).select()
 
     if (error) {
       if (error.code === "23505") {
@@ -36,13 +36,13 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
       }
       if (error.code === "42501") {
         // RLS policy violation
-        return { success: false, message: "Database access error. Please contact support." }
+        return { success: false, message: "Database access error. Please contact support at info@grassrootskw.org." }
       }
       return { success: false, message: "Failed to add email to waitlist. Please try again." }
     }
 
     return { success: true, message: "Thanks for joining the waitlist!" }
-  } catch (error) {
+  } catch {
     return { success: false, message: "An unexpected error occurred. Please try again." }
   }
 }

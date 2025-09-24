@@ -384,7 +384,7 @@ export function AvailabilityGrid({
             💡 Tip: Hold and drag your mouse to select multiple time slots at once
           </p>
           <p className="sm:hidden">
-            💡 Tip: Tap the time slots when you're available
+            💡 Tip: Tap the time slots when you&apos;re available
           </p>
         </div>
       )}

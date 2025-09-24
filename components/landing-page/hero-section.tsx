@@ -44,8 +44,8 @@ export function HeroSection() {
         
         {/* Value proposition */}
       <div className="mb-6 sm:mb-8 space-y-1 px-4 sm:px-0">
-        <p className="font-switzer text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">You care about our planet but don't know where to start.</p>
-        <p className="font-switzer text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Let's change that.</p>
+        <p className="font-switzer text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">You care about our planet but don&apos;t know where to start.</p>
+        <p className="font-switzer text-base sm:text-lg leading-5 tracking-tighter text-custom-green/80">Let&apos;s change that.</p>
 
       </div>
       <Image
