@@ -6,14 +6,14 @@ frontend:
         - npm install -g pnpm
         - pnpm install --frozen-lockfile
         - echo "Checking environment variables..."
-        - echo "NODE_ENV=$NODE_ENV"
-        - echo "NEXTAUTH_URL=$NEXTAUTH_URL"
-        - echo "NEXTAUTH_SECRET=$(if [ -z "$NEXTAUTH_SECRET" ]; then echo "❌ MISSING"; else echo "✅ SET"; fi)"
-        - echo "GOOGLE_CLIENT_ID=$(if [ -z "$GOOGLE_CLIENT_ID" ]; then echo "❌ MISSING"; else echo "✅ SET"; fi)"
-        - echo "GOOGLE_CLIENT_SECRET=$(if [ -z "$GOOGLE_CLIENT_SECRET" ]; then echo "❌ MISSING"; else echo "✅ SET"; fi)"
-        - echo "NEXT_PUBLIC_SUPABASE_URL=$(if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then echo "❌ MISSING"; else echo "✅ SET"; fi)"
-        - echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$(if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then echo "❌ MISSING"; else echo "✅ SET"; fi)"
-        - echo "SUPABASE_SERVICE_ROLE_KEY=$(if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "❌ MISSING"; else echo "✅ SET"; fi)"
+        - echo "NODE_ENV is $NODE_ENV"
+        - echo "NEXTAUTH_URL is $NEXTAUTH_URL"
+        - 'if [ -z "$NEXTAUTH_SECRET" ]; then echo "NEXTAUTH_SECRET: MISSING"; else echo "NEXTAUTH_SECRET: SET"; fi'
+        - 'if [ -z "$GOOGLE_CLIENT_ID" ]; then echo "GOOGLE_CLIENT_ID: MISSING"; else echo "GOOGLE_CLIENT_ID: SET"; fi'
+        - 'if [ -z "$GOOGLE_CLIENT_SECRET" ]; then echo "GOOGLE_CLIENT_SECRET: MISSING"; else echo "GOOGLE_CLIENT_SECRET: SET"; fi'
+        - 'if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then echo "NEXT_PUBLIC_SUPABASE_URL: MISSING"; else echo "NEXT_PUBLIC_SUPABASE_URL: SET"; fi'
+        - 'if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then echo "NEXT_PUBLIC_SUPABASE_ANON_KEY: MISSING"; else echo "NEXT_PUBLIC_SUPABASE_ANON_KEY: SET"; fi'
+        - 'if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "SUPABASE_SERVICE_ROLE_KEY: MISSING"; else echo "SUPABASE_SERVICE_ROLE_KEY: SET"; fi'
     build:
       commands:
         - echo "Building for production with NODE_ENV=$NODE_ENV"
@@ -23,16 +23,15 @@ frontend:
     postBuild:
       commands:
         - echo "=== Build Summary ==="
-        - echo "✅ Next.js build completed"
-        - echo "🔍 Final environment check:"
-        - echo "   NEXTAUTH_URL: $NEXTAUTH_URL"
-        - echo "   Required variables status:"
-        - echo "   - NEXTAUTH_SECRET: $(if [ -z "$NEXTAUTH_SECRET" ]; then echo "❌ MISSING - Auth will not work"; else echo "✅ SET"; fi)"
-        - echo "   - GOOGLE_CLIENT_ID: $(if [ -z "$GOOGLE_CLIENT_ID" ]; then echo "❌ MISSING - Google login will not work"; else echo "✅ SET"; fi)"
-        - echo "   - SUPABASE_URL: $(if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then echo "❌ MISSING - Database will not work"; else echo "✅ SET"; fi)"
-        - echo "   - SUPABASE_SERVICE_KEY: $(if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "❌ MISSING - Email signup will not work"; else echo "✅ SET"; fi)"
-        - echo ""
-        - echo "🚀 If any variables are missing, add them in Amplify Console > App Settings > Environment Variables"
+        - echo "Next.js build completed"
+        - echo "Final environment check:"
+        - echo "NEXTAUTH_URL is $NEXTAUTH_URL"
+        - echo "Required variables status:"
+        - 'if [ -z "$NEXTAUTH_SECRET" ]; then echo "NEXTAUTH_SECRET: MISSING - Auth will not work"; else echo "NEXTAUTH_SECRET: SET"; fi'
+        - 'if [ -z "$GOOGLE_CLIENT_ID" ]; then echo "GOOGLE_CLIENT_ID: MISSING - Google login will not work"; else echo "GOOGLE_CLIENT_ID: SET"; fi'
+        - 'if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then echo "SUPABASE_URL: MISSING - Database will not work"; else echo "SUPABASE_URL: SET"; fi'
+        - 'if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "SUPABASE_SERVICE_KEY: MISSING - Email signup will not work"; else echo "SUPABASE_SERVICE_KEY: SET"; fi'
+        - echo "If any variables are missing, add them in Amplify Console App Settings Environment Variables"
   artifacts:
     baseDirectory: .next
     files:
