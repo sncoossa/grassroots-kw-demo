@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  // Only allow in development
+  // Only allow in development to prevent exposing environment info in production
   if (process.env.NODE_ENV === 'production') {
-    return NextResponse.json({ error: 'Not available in production' }, { status: 403 })
+    return NextResponse.json({ 
+      error: 'Debug endpoint not available in production',
+      timestamp: new Date().toISOString(),
+      environment: 'production'
+    }, { status: 403 })
   }
 
   return NextResponse.json({
