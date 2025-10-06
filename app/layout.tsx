@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { Instrument_Serif } from "next/font/google"
 import { Providers } from "@/components/providers"
+import ErrorBoundary from "@/components/error-boundary"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -40,9 +41,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={instrumentSerif.variable} suppressHydrationWarning>
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        <ErrorBoundary>
+          <Providers>
+            {children}
+          </Providers>
+        </ErrorBoundary>
       </body>
     </html>
   )

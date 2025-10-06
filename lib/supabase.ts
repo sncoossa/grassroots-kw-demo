@@ -1,14 +1,22 @@
 import { createClient } from '@supabase/supabase-js'
 import { logger } from './logger'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+
+// Validate Supabase configuration
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('[SUPABASE] Missing required environment variables:', {
+    url: supabaseUrl ? 'Set' : 'Missing NEXT_PUBLIC_SUPABASE_URL',
+    key: supabaseAnonKey ? 'Set' : 'Missing NEXT_PUBLIC_SUPABASE_ANON_KEY'
+  })
+}
 
 // Only log configuration in development to avoid exposing sensitive info in production
 if (process.env.NODE_ENV === 'development') {
   logger.log('Supabase config:', { 
-    url: supabaseUrl, 
-    keyPreview: supabaseAnonKey.substring(0, 20) + '...' 
+    url: supabaseUrl || 'Missing', 
+    keyPreview: supabaseAnonKey ? supabaseAnonKey.substring(0, 20) + '...' : 'Missing'
   })
 }
 

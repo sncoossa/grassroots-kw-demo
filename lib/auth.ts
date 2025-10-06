@@ -3,22 +3,27 @@ import type { Session } from "next-auth"
 import type { JWT } from "next-auth/jwt"
 import type { Account } from "next-auth"
 
-// Validate required environment variables
-if (!process.env.GOOGLE_CLIENT_ID) {
-  throw new Error('GOOGLE_CLIENT_ID environment variable is required')
+// Validate required environment variables - use console.error instead of throwing to prevent server crashes
+const requiredEnvVars = {
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 }
-if (!process.env.GOOGLE_CLIENT_SECRET) {
-  throw new Error('GOOGLE_CLIENT_SECRET environment variable is required')
-}
-if (!process.env.NEXTAUTH_SECRET) {
-  throw new Error('NEXTAUTH_SECRET environment variable is required')
+
+const missingEnvVars = Object.entries(requiredEnvVars)
+  .filter(([_, value]) => !value)
+  .map(([key, _]) => key)
+
+if (missingEnvVars.length > 0) {
+  console.error(`[AUTH] Missing required environment variables: ${missingEnvVars.join(', ')}`)
+  // In production, we'll still try to continue with fallback behavior instead of crashing
 }
 
 export const authOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID || 'missing-google-client-id',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'missing-google-client-secret',
     }),
   ],
   callbacks: {

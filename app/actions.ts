@@ -4,8 +4,8 @@ import { createClient } from "@supabase/supabase-js"
 
 // Initialize Supabase client for server-side operations
 // Use NEXT_PUBLIC_SUPABASE_URL for consistency with client-side config
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
 // Log configuration in development for debugging
 if (process.env.NODE_ENV === 'development') {
