@@ -9,9 +9,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  env: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL || (process.env.NODE_ENV === 'production' ? process.env.NEXTAUTH_URL_PRODUCTION : undefined),
-  },
+  // Environment variables are handled by Next.js automatically
+  // No need to explicitly define them here unless doing transformations
 }
 
 export default nextConfig
