@@ -44,7 +44,8 @@ frontend:
     variables:
       NODE_ENV: production
       _LIVE_UPDATES: '[{"name":"Next.js","pkg":"next","type":"framework","version":"15.4.6"}]'
-      # NEXTAUTH_URL should be set in Amplify Console, not hardcoded here
+      # All other environment variables are set in Amplify Console
+      # and should be automatically available at runtime
       # 
       # ⚠️  REQUIRED ENVIRONMENT VARIABLES TO SET IN AMPLIFY CONSOLE:
       # 
