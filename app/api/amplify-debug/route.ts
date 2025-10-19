@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server'
 
 export async function GET() {
+  // TEMPORARY: Log all environment variables to see what's available at runtime
+  console.log('=== FULL PROCESS.ENV DUMP ===')
+  console.log(JSON.stringify(process.env, null, 2))
+  console.log('=== END PROCESS.ENV DUMP ===')
+  
   // This endpoint helps diagnose AWS Amplify environment variable issues
   
   const diagnostics = {
@@ -75,7 +80,11 @@ export async function GET() {
       if_server_vars_missing: "Server-side vars need to be set in Amplify Console AND properly configured for the runtime environment.",
       amplify_specific_issue: "Amplify sometimes needs variables to be re-saved or the app redeployed after adding them.",
       suggested_fix: "Try re-saving all environment variables in Amplify Console and redeploy"
-    }
+    },
+    
+    // TEMPORARY: Show all environment variable names (values hidden for security)
+    all_env_vars_available: Object.keys(process.env).sort(),
+    env_vars_count: Object.keys(process.env).length
   }
   
   return NextResponse.json(diagnostics, { 
