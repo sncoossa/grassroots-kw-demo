@@ -17,6 +17,21 @@ frontend:
     build:
       commands:
         - echo "Building for production with NODE_ENV=$NODE_ENV"
+        - echo "Creating .env.production file with runtime environment variables..."
+        - |
+          cat > .env.production << EOF
+          # Generated during Amplify build - DO NOT EDIT MANUALLY
+          # This file ensures environment variables are available at Next.js runtime
+          NODE_ENV=production
+          NEXTAUTH_URL=${NEXTAUTH_URL}
+          NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+          GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+          GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+          SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+          # NEXT_PUBLIC_ variables are bundled at build time, no need to include here
+          EOF
+        - echo "Generated .env.production file:"
+        - cat .env.production
         - echo "Starting Next.js build process..."
         - pnpm run build
         - echo "Build completed successfully!"
@@ -44,8 +59,7 @@ frontend:
     variables:
       NODE_ENV: production
       _LIVE_UPDATES: '[{"name":"Next.js","pkg":"next","type":"framework","version":"15.4.6"}]'
-      # All other environment variables are set in Amplify Console
-      # and should be automatically available at runtime
+      # Environment variables are now injected via .env.production file during build
       # 
       # ⚠️  REQUIRED ENVIRONMENT VARIABLES TO SET IN AMPLIFY CONSOLE:
       # 
