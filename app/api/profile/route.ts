@@ -82,8 +82,17 @@ export async function POST(request: NextRequest) {
         usingAdmin: !!supabaseAdmin,
         fullError: error
       })
+
+      // Translate network/fetch failures into a 502 with a clearer message
+      const rawMessage = error.message || error.code || 'Unknown error'
+      const isFetchFailed = typeof rawMessage === 'string' && rawMessage.toLowerCase().includes('fetch failed')
+
+      if (isFetchFailed) {
+        return NextResponse.json({ error: 'Profile upsert failed: Network error contacting Supabase' }, { status: 502 })
+      }
+
       return NextResponse.json({ 
-        error: `Profile upsert failed: ${error.message || error.code || 'Unknown error'}` 
+        error: `Profile upsert failed: ${rawMessage}` 
       }, { status: 500 })
     }
 
@@ -92,6 +101,13 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Profile API POST error:', error)
+
+    // If the caught error is a network/fetch failure, return 502
+    const message = error instanceof Error ? error.message : String(error)
+    if (typeof message === 'string' && message.toLowerCase().includes('fetch failed')) {
+      return NextResponse.json({ error: 'Profile upsert failed: Network error contacting Supabase' }, { status: 502 })
+    }
+
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
