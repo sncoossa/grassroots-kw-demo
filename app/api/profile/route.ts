@@ -12,9 +12,14 @@ export async function GET() {
       logger.log('Profile API GET - Environment:', config.getEnvironmentInfo())
     }
     
-    // Check authentication
+    // Check authentication (timing logged)
+    const authStart = Date.now()
     const session = await getServerSession(authOptions)
+    const authElapsed = Date.now() - authStart
+    logger.log('Profile API POST - auth timing (ms):', authElapsed)
+
     if (!session?.user?.id) {
+      logger.log('Profile API POST - no session found')
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -63,6 +68,9 @@ export async function POST(request: NextRequest) {
 
     logger.log('API: Upserting profile data', { userId: session.user.id, upsertedFields: Object.keys(upsertData) })
 
+    // Time the upsert call to detect slow network/DB
+    const upsertStart = Date.now()
+
     // Use admin client for upsert operations to bypass RLS issues
     const client = supabaseAdmin || supabase
     const { data, error } = await client
@@ -72,6 +80,8 @@ export async function POST(request: NextRequest) {
       })
       .select()
       .single()
+    const upsertElapsed = Date.now() - upsertStart
+    logger.log('Profile API POST - upsert timing (ms):', upsertElapsed, { usingAdmin: !!supabaseAdmin })
 
     if (error) {
       console.error('API: Profile upsert error:', {
@@ -82,8 +92,17 @@ export async function POST(request: NextRequest) {
         usingAdmin: !!supabaseAdmin,
         fullError: error
       })
+
+      // Translate network/fetch failures into a 502 with a clearer message
+      const rawMessage = error.message || error.code || 'Unknown error'
+      const isFetchFailed = typeof rawMessage === 'string' && rawMessage.toLowerCase().includes('fetch failed')
+
+      if (isFetchFailed) {
+        return NextResponse.json({ error: 'Profile upsert failed: Network error contacting Supabase' }, { status: 502 })
+      }
+
       return NextResponse.json({ 
-        error: `Profile upsert failed: ${error.message || error.code || 'Unknown error'}` 
+        error: `Profile upsert failed: ${rawMessage}` 
       }, { status: 500 })
     }
 
@@ -92,6 +111,13 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Profile API POST error:', error)
+
+    // If the caught error is a network/fetch failure, return 502
+    const message = error instanceof Error ? error.message : String(error)
+    if (typeof message === 'string' && message.toLowerCase().includes('fetch failed')) {
+      return NextResponse.json({ error: 'Profile upsert failed: Network error contacting Supabase' }, { status: 502 })
+    }
+
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

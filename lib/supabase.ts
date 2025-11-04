@@ -113,6 +113,10 @@ export const profileService = {
         .single()
       
       if (error) {
+        // Inspect error to provide a clearer message for network/fetch failures
+        const rawMessage = (error && (error.message || error.code)) || 'Unknown error'
+        const isFetchFailed = typeof rawMessage === 'string' && rawMessage.toLowerCase().includes('fetch failed')
+
         console.error('Profile upsert error:', {
           message: error.message,
           code: error.code,
@@ -121,7 +125,13 @@ export const profileService = {
           usingAdmin: !!supabaseAdmin,
           fullError: error
         })
-        throw new Error(`Profile upsert failed: ${error.message || error.code || 'Unknown error'}`)
+
+        const userFriendly = isFetchFailed
+          ? 'Network error: failed to contact Supabase (fetch failed)'
+          : rawMessage
+
+        // Throw a message that the calling code/API route can surface to the user.
+        throw new Error(`Profile upsert failed: ${userFriendly}`)
       }
       
       logger.log('Profile upsert successful:', data)
