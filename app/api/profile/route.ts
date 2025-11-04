@@ -12,9 +12,14 @@ export async function GET() {
       logger.log('Profile API GET - Environment:', config.getEnvironmentInfo())
     }
     
-    // Check authentication
+    // Check authentication (timing logged)
+    const authStart = Date.now()
     const session = await getServerSession(authOptions)
+    const authElapsed = Date.now() - authStart
+    logger.log('Profile API POST - auth timing (ms):', authElapsed)
+
     if (!session?.user?.id) {
+      logger.log('Profile API POST - no session found')
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -63,6 +68,9 @@ export async function POST(request: NextRequest) {
 
     logger.log('API: Upserting profile data', { userId: session.user.id, upsertedFields: Object.keys(upsertData) })
 
+    // Time the upsert call to detect slow network/DB
+    const upsertStart = Date.now()
+
     // Use admin client for upsert operations to bypass RLS issues
     const client = supabaseAdmin || supabase
     const { data, error } = await client
@@ -72,6 +80,8 @@ export async function POST(request: NextRequest) {
       })
       .select()
       .single()
+    const upsertElapsed = Date.now() - upsertStart
+    logger.log('Profile API POST - upsert timing (ms):', upsertElapsed, { usingAdmin: !!supabaseAdmin })
 
     if (error) {
       console.error('API: Profile upsert error:', {
