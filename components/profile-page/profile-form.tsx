@@ -200,6 +200,34 @@ export function ProfileForm() {
         profile_image: profileData.profileImage,
       })
       
+
+      // If the profile image is a data URL (large base64), upload it first
+      const ensureImageUploaded = async (image: string) => {
+        if (!image || !image.startsWith('data:')) return image
+
+        // Upload via the existing upload-image API route using FormData
+        const formData = new FormData()
+        // Convert data URL to Blob
+        const res = await fetch(image)
+        const blob = await res.blob()
+        formData.append('file', blob, 'upload.png')
+
+        const uploadResp = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (!uploadResp.ok) {
+          const err = await uploadResp.json().catch(() => ({}))
+          throw new Error(err.error || 'Image upload failed')
+        }
+
+        const uploadResult = await uploadResp.json()
+        return uploadResult.url
+      }
+
+      const finalImage = await ensureImageUploaded(profileData.profileImage)
+
       // Use API route for profile operations
       const response = await fetch('/api/profile', {
         method: 'POST',
@@ -210,7 +238,7 @@ export function ProfileForm() {
           pronouns: profileData.pronouns,
           phone: profileData.phone,
           bio: profileData.bio,
-          profile_image: profileData.profileImage,
+          profile_image: finalImage,
         }),
       })
 
