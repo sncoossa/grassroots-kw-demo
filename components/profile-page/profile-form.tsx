@@ -145,9 +145,12 @@ export function ProfileForm() {
         
         logger.log('Upload successful:', result)
         
+        // Store the storage object name (fileName) in the profile state so
+        // the profile upsert stays small. Use the returned public URL only
+        // for previews or automatic saves.
         setProfileData(prev => ({
           ...prev,
-          profileImage: result.url
+          profileImage: result.fileName || result.url
         }))
         
         toast.success("Image uploaded successfully!")
@@ -160,11 +163,12 @@ export function ProfileForm() {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              pronouns: profileData.pronouns,
-              phone: profileData.phone,
-              bio: profileData.bio,
-              profile_image: result.url,
-            }),
+                pronouns: profileData.pronouns,
+                phone: profileData.phone,
+                bio: profileData.bio,
+                // Save the storage object name (or URL fallback) so DB stores a small value
+                profile_image: result.fileName || result.url,
+              }),
           })
 
           if (saveResponse.ok) {
@@ -223,7 +227,9 @@ export function ProfileForm() {
         }
 
         const uploadResult = await uploadResp.json()
-        return uploadResult.url
+        // Return storage object name (fileName) when available so we store
+        // a compact reference in the DB. Fallback to the public URL.
+        return uploadResult.fileName || uploadResult.url
       }
 
       const finalImage = await ensureImageUploaded(profileData.profileImage)
@@ -279,6 +285,19 @@ export function ProfileForm() {
       .slice(0, 2)
   }
 
+  const getProfileImageSrc = (img: string) => {
+    if (!img) return undefined
+    // If it's a data URL, use directly
+    if (img.startsWith('data:')) return img
+    // If it's already a full URL, use it
+    if (img.startsWith('http')) return img
+    // Otherwise assume it's a storage object name and build the public URL
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const bucket = 'profile-images'
+    if (!supabaseUrl) return undefined
+    return `${supabaseUrl.replace(/\/$/, '')}/storage/v1/object/public/${bucket}/${img}`
+  }
+
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
@@ -295,7 +314,7 @@ export function ProfileForm() {
         <div className="flex flex-col items-center gap-4">
           <div className="relative">
             <Avatar className="h-32 w-32">
-              <AvatarImage src={profileData.profileImage} alt={profileData.name} />
+              <AvatarImage src={getProfileImageSrc(profileData.profileImage)} alt={profileData.name} />
               <AvatarFallback className="text-2xl">
                 {getInitials(profileData.name || "U")}
               </AvatarFallback>
