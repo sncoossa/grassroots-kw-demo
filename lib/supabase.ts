@@ -71,20 +71,31 @@ export interface ActionInterest {
 export const profileService = {
   async getProfile(userId: string): Promise<UserProfile | null> {
     try {
+      // On the client, use our API route to avoid RLS/auth issues with anon key
+      if (typeof window !== 'undefined') {
+        const res = await fetch('/api/profile')
+        if (!res.ok) return null
+        const json = await res.json().catch(() => null)
+        return json?.profile || null
+      }
+
       const { data, error } = await supabase
         .from('user_profiles')
         .select('*')
         .eq('user_id', userId)
         .maybeSingle()
-      
+
       if (error) {
+        const err: any = error as any
         console.error('Profile query error:', {
-          message: error.message,
-          code: error.code
+          message: err?.message,
+          code: err?.code,
+          details: err?.details,
+          hint: err?.hint
         })
         return null
       }
-      
+
       return data
     } catch (error) {
       console.error('Unexpected error in getProfile:', error)

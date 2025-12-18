@@ -26,7 +26,14 @@ export function ProfileButton() {
         try {
           const profile = await profileService.getProfile(session.user.id)
           if (profile?.profile_image) {
-            setProfileImage(profile.profile_image)
+            const toPublicUrl = (img: string) => {
+              if (!img) return ""
+              if (img.startsWith('http') || img.startsWith('data:')) return img
+              const base = process.env.NEXT_PUBLIC_SUPABASE_URL
+              if (!base) return img
+              return `${base.replace(/\/$/, '')}/storage/v1/object/public/profile-images/${img}`
+            }
+            setProfileImage(toPublicUrl(profile.profile_image))
           }
         } catch (error) {
           console.error('Error loading profile image:', error)
