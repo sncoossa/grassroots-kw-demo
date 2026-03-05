@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Send } from "lucide-react"
 import Link from "next/link"
 import { profileService } from "@/lib/supabase"
+import { logger } from "@/lib/logger"
 import { toast } from "sonner"
 import {
   ActionDetailsCard,
@@ -126,7 +127,7 @@ function IndicateInterestForm() {
       
       // Optionally, you could also send an email with the calendar invite
       // This would require a backend service to send emails
-      console.log('Calendar invite generated:', calendarUrl)
+      logger.log('Calendar invite generated:', calendarUrl)
     }
   }
 
@@ -164,7 +165,7 @@ function IndicateInterestForm() {
         toast.success("Interest registered successfully!")
       } else {
         // Log the data for non-authenticated users (you might want to handle this differently)
-        console.log('Form Data (non-authenticated):', submissionData)
+        logger.log('Form Data (non-authenticated):', submissionData)
         toast.success("Interest registered! Sign in to save your preferences.")
       }
       
@@ -188,7 +189,7 @@ function IndicateInterestForm() {
 
   return (
     <div className="min-h-screen bg-custom-bg">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
           <div className="mb-4 sm:mb-6">

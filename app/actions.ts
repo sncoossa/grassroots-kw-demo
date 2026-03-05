@@ -1,6 +1,7 @@
 "use server"
 
 import { createClient } from "@supabase/supabase-js"
+import { logger } from "@/lib/logger"
 
 // Get environment variables
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -8,7 +9,7 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // Log configuration in development for debugging
 if (process.env.NODE_ENV === 'development') {
-  console.log('[ACTIONS] Supabase config:', { 
+  logger.log('[ACTIONS] Supabase config:', { 
     url: supabaseUrl ? 'Set' : 'Missing', 
     serviceKey: supabaseServiceRoleKey ? 'Set' : 'Missing' 
   })
@@ -50,7 +51,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
 
     // Log attempt in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('[WAITLIST] Attempting to add email:', email)
+      logger.log('[WAITLIST] Attempting to add email:', email)
     }
 
     // Check if environment variables are available BEFORE creating client
@@ -103,7 +104,7 @@ export async function addEmailToWaitlist(_prevState: EmailState | null, formData
 
     // Log success in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('[WAITLIST] Successfully added email:', data)
+      logger.log('[WAITLIST] Successfully added email:', data)
     }
 
     return { success: true, message: "Thanks for joining the waitlist!" }

@@ -44,8 +44,16 @@ function parseCSVLine(line: string): string[] {
 export async function fetchCSVData(): Promise<ActionItem[]> {
   try {
     const response = await fetch(
-      "https://ro5hnccyvszzcdzv.public.blob.vercel-storage.com/Website-Content%20-%20Focus%20Group%20Inventory.csv",
+      "https://ro5hnccyvszzcdzv.public.blob.vercel-storage.com/Website-Content%20-%20Focus%20Group%20Inventory.csv?timestamp=" + Date.now(),
+      {
+        cache: "no-store",
+      }
     )
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch CSV: ${response.status}`)
+    }
+    
     const csvText = await response.text()
 
     const lines = csvText.split("\n")

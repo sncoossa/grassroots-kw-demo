@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server'
+import { logger } from '@/lib/logger'
 
 export async function GET() {
   // TEMPORARY: Log all environment variables to see what's available at runtime
-  console.log('=== FULL PROCESS.ENV DUMP ===')
-  console.log(JSON.stringify(process.env, null, 2))
-  console.log('=== END PROCESS.ENV DUMP ===')
+  logger.log('=== FULL PROCESS.ENV DUMP ===')
+  logger.log(JSON.stringify(process.env, null, 2))
+  logger.log('=== END PROCESS.ENV DUMP ===')
   
   // This endpoint helps diagnose AWS Amplify environment variable issues
   

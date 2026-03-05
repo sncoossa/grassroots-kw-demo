@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { memo } from "react"
 import { LogIn } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -15,7 +16,7 @@ import { profileService } from "@/lib/supabase"
  * or to the sign-in page if not authenticated.
  * Positioned in the top right corner of the homepage.
  */
-export function ProfileButton() {
+function ProfileButtonComponent() {
   const { data: session, status } = useSession()
   const [profileImage, setProfileImage] = useState<string>("")
 
@@ -88,3 +89,5 @@ export function ProfileButton() {
     </Link>
   )
 }
+
+export const ProfileButton = memo(ProfileButtonComponent)
