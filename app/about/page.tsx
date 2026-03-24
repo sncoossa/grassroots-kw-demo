@@ -3,10 +3,12 @@ import Image from 'next/image'
 import { HeaderBanner } from '@/components/landing-page/header-banner'
 import { AnimatedCard } from '@/components/about/animated-card'
 
+// This page introduces the team members of GrassrootsKW
 export const metadata = {
   title: 'Meet the Team — GrassrootsKW',
 }
 
+// Each team member has their name, a short intro, and a fun fact or question that they like to use as an icebreaker. 
 const team = [
   {
     name: 'Abi',
@@ -73,6 +75,7 @@ const team = [
   },
 ]
 
+// This function lets us bold the team member's name if it is in the intro.
 function renderIntro(intro: string, introName: string | null) {
   if (!introName) return <>{intro}</>
   const idx = intro.indexOf(introName)
@@ -86,6 +89,7 @@ function renderIntro(intro: string, introName: string | null) {
   )
 }
 
+// Rendering the page
 export default function MeetTheTeamPage() {
   return (
     <div className="min-h-screen bg-custom-bg">
