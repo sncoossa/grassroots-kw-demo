@@ -15,7 +15,7 @@ function NavigationBarComponent() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-custom-green shadow-lg">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-custom-green/80 shadow-lg">
       <div className="flex justify-end items-center h-16 px-6 gap-6">
         {/* Navigation buttons - right aligned */}
         <a 

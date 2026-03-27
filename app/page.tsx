@@ -6,7 +6,6 @@ import { useState, useEffect } from "react"
 import { fetchCSVData, filterActions, type ActionItem } from "@/lib/csv-data"
 import { useActionState } from "react" // Import useActionState for form handling
 import { addEmailToWaitlist, type EmailState } from "@/app/actions" // Import the Server Action
-import { HeaderBanner } from "@/components/landing-page/header-banner"
 import { HeroSection } from "@/components/landing-page/hero-section"
 import { PreferencesSection } from "@/components/landing-page/preferences-section"
 import { EventForm } from "@/components/landing-page/event-form"
@@ -99,9 +98,6 @@ export default function GrassrootsKW() {
 
   return (
     <div className="min-h-screen bg-custom-bg">
-      {/* Top banner with contact information for non-profits */}
-      <HeaderBanner />
-      
       {/* Main hero section with branding and funding info */}
       <HeroSection />
       
