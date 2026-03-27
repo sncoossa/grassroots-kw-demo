@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { memo } from "react"
 import { LogIn } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -15,7 +16,7 @@ import { profileService } from "@/lib/supabase"
  * or to the sign-in page if not authenticated.
  * Positioned in the top right corner of the homepage.
  */
-export function ProfileButton() {
+function ProfileButtonComponent() {
   const { data: session, status } = useSession()
   const [profileImage, setProfileImage] = useState<string>("")
 
@@ -26,7 +27,14 @@ export function ProfileButton() {
         try {
           const profile = await profileService.getProfile(session.user.id)
           if (profile?.profile_image) {
-            setProfileImage(profile.profile_image)
+            const toPublicUrl = (img: string) => {
+              if (!img) return ""
+              if (img.startsWith('http') || img.startsWith('data:')) return img
+              const base = process.env.NEXT_PUBLIC_SUPABASE_URL
+              if (!base) return img
+              return `${base.replace(/\/$/, '')}/storage/v1/object/public/profile-images/${img}`
+            }
+            setProfileImage(toPublicUrl(profile.profile_image))
           }
         } catch (error) {
           console.error('Error loading profile image:', error)
@@ -81,3 +89,5 @@ export function ProfileButton() {
     </Link>
   )
 }
+
+export const ProfileButton = memo(ProfileButtonComponent)

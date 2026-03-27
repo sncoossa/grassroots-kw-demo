@@ -1,4 +1,5 @@
 import { TIME_SLOTS } from "./constants"
+import { logger } from "@/lib/logger"
 
 /**
  * Parses action time and finds matching time slots
@@ -91,7 +92,7 @@ export const generateCalendarInvite = (
         startDate = parsedDate
       }
     } catch {
-      console.warn('Could not parse date:', actionDate)
+      logger.warn('Could not parse date:', actionDate)
     }
   }
 

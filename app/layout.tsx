@@ -4,6 +4,7 @@ import "./globals.css"
 import { Instrument_Serif } from "next/font/google"
 import { Providers } from "@/components/providers"
 import ErrorBoundary from "@/components/error-boundary"
+import { NavigationBar } from "@/components/navigation-bar"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body>
         <ErrorBoundary>
           <Providers>
+            <NavigationBar />
             {children}
           </Providers>
         </ErrorBoundary>
