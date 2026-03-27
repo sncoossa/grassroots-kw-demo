@@ -32,10 +32,10 @@ function NavigationBarComponent() {
           Events
         </a>
         <a 
-          href="/get-involved" 
+          href="/our-team" 
           className="px-6 py-2.5 text-sm font-semibold bg-custom-highlight text-custom-green rounded-lg shadow-md transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95"
         >
-          Get Involved
+          Our Team
         </a>
 
         {/* Profile button at the far right */}

@@ -1,12 +1,10 @@
-import Link from 'next/link'
 import Image from 'next/image'
-import { HeaderBanner } from '@/components/landing-page/header-banner'
 import { AnimatedCard } from '@/components/about/animated-card'
 import team from './team.json'
 
 // This page introduces the team members of GrassrootsKW
 export const metadata = {
-  title: 'Meet the GrassrootsKW Team!',
+  title: 'The GrassrootsKW Team!',
 }
 
 type TeamMember = {
@@ -37,25 +35,14 @@ function renderIntro(intro: string, introName: string | null) {
 export default function MeetTheTeamPage() {
   return (
     <div className="min-h-screen bg-custom-bg">
-      <HeaderBanner />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-12">
-        <div className="mb-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-switzer text-custom-green hover:underline"
-            aria-label="Back to home"
-          >
-            ← Back to home
-          </Link>
-        </div>
-
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl sm:text-5xl font-instrument-serif tracking-tighter text-custom-green">
+        <div className="mb-10 text-center">
+          <h1 className="mt-12 text-9xl sm:text-9xl font-instrument-serif tracking-tighter text-custom-green">
             Meet the Team
           </h1>
           <p className="mt-3 font-switzer text-base text-custom-green/70 leading-5 tracking-tighter">
-            The people behind grassroots.kw
+            The people behind GrassrootsKW
           </p>
         </div>
 
