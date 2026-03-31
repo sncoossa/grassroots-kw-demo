@@ -5,6 +5,7 @@ import { Instrument_Serif } from "next/font/google"
 import { Providers } from "@/components/providers"
 import ErrorBoundary from "@/components/error-boundary"
 import { NavigationBar } from "@/components/navigation-bar"
+import { Analytics } from "@vercel/analytics/next"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -48,6 +49,7 @@ export default function RootLayout({
             {children}
           </Providers>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   )
