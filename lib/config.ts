@@ -21,7 +21,7 @@ export const config = {
         return process.env.NETLIFY_URL
       }
       // Default production URL
-      return 'https://grassrootskw.org'
+      return 'https://www.grassrootskw.org'
     }
 
     // 3. Development environment

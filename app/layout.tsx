@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers"
 import ErrorBoundary from "@/components/error-boundary"
 import { NavigationBar } from "@/components/navigation-bar"
 import { Analytics } from "@vercel/analytics/next"
+import { config } from "@/lib/config"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -14,14 +15,14 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXTAUTH_URL || 'https://grassrootskw.org'),
+  metadataBase: new URL(config.getBaseUrl()),
   title: "Grassroots KW",
   description: "Real action. Real community.",
   generator: "v0.dev",
   openGraph: {
     title: "Grassroots KW",
     description: "Real action. Real community.",
-    url: "https://grassrootskw.org", // Replace with your actual domain if known
+    url: config.getBaseUrl(),
     siteName: "Grassroots KW",
     images: [
       {
