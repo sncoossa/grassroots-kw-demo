@@ -1,11 +1,11 @@
-# Environment Configuration for Production (grassrootskw.org)
+# Environment Configuration for Production (www.grassrootskw.org)
 
 ## Required Environment Variables
 
 ### NextAuth Configuration
 ```bash
 # Production URL - automatically detected or set explicitly
-NEXTAUTH_URL=https://grassrootskw.org
+NEXTAUTH_URL=https://www.grassrootskw.org
 NEXTAUTH_SECRET=your-nextauth-secret-here
 
 # Google OAuth credentials
@@ -34,8 +34,8 @@ The application automatically detects the environment and configures URLs accord
 - API routes: Relative URLs (`/api/profile`, `/api/upload-image`)
 - NextAuth callbacks: Auto-configured for localhost
 
-### Production (grassrootskw.org)
-- Base URL: `https://grassrootskw.org` (or from NEXTAUTH_URL)
+### Production (www.grassrootskw.org)
+- Base URL: `https://www.grassrootskw.org` (or from NEXTAUTH_URL)
 - API routes: Same relative URLs work automatically
 - NextAuth callbacks: Auto-configured for production domain
 
@@ -44,7 +44,7 @@ The application automatically detects the environment and configures URLs accord
 ✅ **Profile API** (`/api/profile`):
 - GET: Fetch user profile with session authentication
 - POST: Save/update profile using service role authentication
-- Environment-agnostic: Works on localhost and grassrootskw.org
+- Environment-agnostic: Works on localhost and www.grassrootskw.org
 
 ✅ **Image Upload API** (`/api/upload-image`):
 - POST: Upload profile images to Supabase Storage
@@ -76,4 +76,4 @@ The application automatically detects the environment and configures URLs accord
 
 ## Deployment
 
-The application is ready for deployment to grassrootskw.org with no code changes needed - just ensure environment variables are properly configured in your hosting platform.
+The application is ready for deployment to www.grassrootskw.org with no code changes needed - just ensure environment variables are properly configured in your hosting platform.

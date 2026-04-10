@@ -28,7 +28,7 @@ Write-Host "🔗 Google OAuth Setup:" -ForegroundColor Blue
 Write-Host "   1. Go to: https://console.cloud.google.com/"
 Write-Host "   2. Create/Select project > APIs & Services > Credentials"
 Write-Host "   3. Create OAuth 2.0 Client ID"
-Write-Host "   4. Add authorized redirect URI: https://grassrootskw.org/api/auth/callback/google"
+Write-Host "   4. Add authorized redirect URI: https://www.grassrootskw.org/api/auth/callback/google"
 Write-Host ""
 Write-Host "🗄️  Supabase Values:" -ForegroundColor Magenta
 Write-Host "   1. Go to: https://supabase.com/dashboard"

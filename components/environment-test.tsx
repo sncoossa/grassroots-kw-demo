@@ -59,7 +59,7 @@ export function EnvironmentTest() {
       if (currentDomain.includes('localhost')) {
         results.push("✅ Environment: Development (localhost)")
       } else if (currentDomain.includes('grassrootskw.org')) {
-        results.push("✅ Environment: Production (grassrootskw.org)")
+        results.push("✅ Environment: Production (www.grassrootskw.org)")
       } else {
         results.push(`✅ Environment: Other (${currentDomain})`)
       }

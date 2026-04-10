@@ -13,7 +13,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 # NextAuth - Automatic URL Detection
 # Leave NEXTAUTH_URL blank for automatic environment detection
 # Development: http://localhost:3000 (automatic)
-# Production: https://grassrootskw.org (automatic)
+# Production: https://www.grassrootskw.org (automatic)
 # Override: Set NEXTAUTH_URL=your-custom-url if needed
 NEXTAUTH_URL=
 NEXTAUTH_SECRET=your-nextauth-secret
@@ -38,8 +38,8 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
    - Create OAuth 2.0 credentials
    - Add your domain to authorized origins
    - Add callback URLs for both environments:
-     - Development: `http://localhost:3000/api/auth/callback/google`
-     - Production: `https://grassrootskw.org/api/auth/callback/google`
+       - Development: `http://localhost:3000/api/auth/callback/google`
+       - Production: `https://www.grassrootskw.org/api/auth/callback/google`
 
 ## Features Implemented
 
