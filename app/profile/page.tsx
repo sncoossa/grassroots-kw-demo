@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { ProfileHeader } from "@/components/profile-page/profile-header"
 import { ProfileForm } from "@/components/profile-page/profile-form"
 
 /**
@@ -36,8 +35,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-custom-bg">
-      <ProfileHeader />
+    <div className="min-h-screen bg-custom-bg pt-20">
       <main className="max-w-4xl mx-auto px-4 py-8">
         <ProfileForm />
       </main>
