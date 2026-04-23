@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Camera, Save, User } from "lucide-react"
-import { useSession } from "next-auth/react"
+import { Camera, Save, User, LogOut } from "lucide-react"
+import { useSession, signOut } from "next-auth/react"
 import { toast } from "sonner"
 import { logger } from "@/lib/logger"
 
@@ -432,6 +432,19 @@ export function ProfileForm() {
             </>
           )}
         </Button>
+
+        <div className="flex items-center justify-between pt-4 border-t">
+          <p className="text-sm text-muted-foreground">Done with your session?</p>
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            Sign Out
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
