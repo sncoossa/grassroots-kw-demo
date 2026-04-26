@@ -35,8 +35,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-custom-bg">
-      <main className="max-w-4xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-custom-bg pt-24">
+      <main className="max-w-4xl mx-auto px-4 pb-8">
         <ProfileForm />
       </main>
     </div>
