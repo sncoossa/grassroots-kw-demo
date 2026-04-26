@@ -188,8 +188,8 @@ function IndicateInterestForm() {
   }
 
   return (
-    <div className="min-h-screen bg-custom-bg">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-custom-bg pt-24">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 pb-8 sm:pb-12 md:pb-16">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
           <div className="mb-4 sm:mb-6">
