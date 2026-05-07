@@ -101,7 +101,7 @@ export default function GrassrootsKW() {
       {/* Main hero section with branding and funding info */}
       <HeroSection />
       
-      Interactive preferences and filtered actions display
+      {/* Interactive preferences and filtered actions display
       <PreferencesSection
         timeOptions={TIME_OPTIONS}
         effortOptions={EFFORT_OPTIONS}
@@ -115,7 +115,7 @@ export default function GrassrootsKW() {
         onEffortChange={handleEffortChange}
         onInterestsChange={handleInterestsChange}
         onRemoveInterest={removeInterest}
-      />
+      /> */}
       {/*Event Form Component*/}
       <EventForm />
       
