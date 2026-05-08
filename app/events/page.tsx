@@ -1,18 +1,47 @@
 "use client"
 
+import type React from "react"
 import { useState, useEffect } from "react"
-import { fetchCSVData, type ActionItem } from "@/lib/csv-data"
+import { fetchCSVData, filterActions, type ActionItem } from "@/lib/csv-data"
 import { EventCalendar } from "@/components/events/event-calendar"
+import { PreferencesSection } from "@/components/landing-page/preferences-section"
+
+const TIME_OPTIONS = ["Any", "Minutes", "Hours", "Days", "Weeks"]
+
+const EFFORT_OPTIONS = ["Any", "Individual", "Collective", "Both"]
+
+const INTERESTS_OPTIONS = [
+  "Biodiversity",
+  "Hackathon",
+  "Networking",
+  "Social",
+  "Education",
+  "Business",
+  "Waste Management",
+  "Gardening",
+  "Food",
+  "Urban Planning",
+  "Transportation",
+  "Waterways",
+  "Policy",
+  "Technology",
+]
 
 export default function EventsPage() {
   const [events, setEvents] = useState<ActionItem[]>([])
   const [loading, setLoading] = useState(true)
+
+  const [timeValue, setTimeValue] = useState("Any")
+  const [effortValue, setEffortValue] = useState("Any")
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([])
+  const [filteredActions, setFilteredActions] = useState<ActionItem[]>([])
 
   useEffect(() => {
     async function loadEvents() {
       try {
         const data = await fetchCSVData()
         setEvents(data)
+        setFilteredActions(data)
       } catch (error) {
         console.error("Error loading events:", error)
       } finally {
@@ -22,6 +51,30 @@ export default function EventsPage() {
 
     loadEvents()
   }, [])
+
+  useEffect(() => {
+    const filtered = filterActions(events, timeValue, effortValue, selectedInterests)
+    setFilteredActions(filtered)
+  }, [events, timeValue, effortValue, selectedInterests])
+
+  const handleTimeChange = (index: number) => {
+    setTimeValue(TIME_OPTIONS[index])
+  }
+
+  const handleEffortChange = (index: number) => {
+    setEffortValue(EFFORT_OPTIONS[index])
+  }
+
+  const handleInterestsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value
+    if (value && !selectedInterests.includes(value)) {
+      setSelectedInterests([...selectedInterests, value])
+    }
+  }
+
+  const removeInterest = (interest: string) => {
+    setSelectedInterests(selectedInterests.filter((i) => i !== interest))
+  }
 
   if (loading) {
     return (
@@ -40,12 +93,27 @@ export default function EventsPage() {
           Events
         </h1>
 
+        <PreferencesSection
+          timeOptions={TIME_OPTIONS}
+          effortOptions={EFFORT_OPTIONS}
+          interestsOptions={INTERESTS_OPTIONS}
+          timeValue={timeValue}
+          effortValue={effortValue}
+          selectedInterests={selectedInterests}
+          filteredActions={filteredActions}
+          loading={loading}
+          onTimeChange={handleTimeChange}
+          onEffortChange={handleEffortChange}
+          onInterestsChange={handleInterestsChange}
+          onRemoveInterest={removeInterest}
+        />
+
         <EventCalendar events={events} />
 
         {events.length === 0 ? (
           <p className="text-center text-custom-green/70">No events available</p>
         ) : (
-          <div className="overflow-x-auto bg-white rounded-lg shadow">
+          <div className="overflow-x-auto bg-white rounded-lg shadow mt-8">
             <table className="w-full">
               <thead className="bg-custom-green text-white">
                 <tr>
