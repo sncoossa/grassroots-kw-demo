@@ -40,62 +40,67 @@ export default function EventsPage() {
           Events
         </h1>
 
-        <EventCalendar events={events} />
-
-        {events.length === 0 ? (
-          <p className="text-center text-custom-green/70">No events available</p>
-        ) : (
-          <div className="overflow-x-auto bg-white rounded-lg shadow">
-            <table className="w-full">
-              <thead className="bg-custom-green text-white">
-                <tr>
-                  <th className="px-6 py-3 text-left text-sm font-semibold">Title</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold">Date</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold">Time</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold">Location</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold">Link</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {events.map((event, index) => (
-                  <tr
-                    key={index}
-                    className="hover:bg-gray-50 transition-colors"
-                  >
-                    <td className="px-6 py-4 text-sm text-gray-900 font-medium">
-                      {event.title}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {event.displayDate}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {event.time}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {event.location}
-                    </td>
-                    <td className="px-6 py-4 text-sm">
-                      {event.link ? (
-                        <a
-                          href={event.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-custom-green hover:underline"
-                        >
-                          View
-                        </a>
-                      ) : (
-                        <span className="text-gray-400">-</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+          {/* Calendar - fixed width on desktop */}
+          <div className="w-full lg:w-[400px] lg:min-w-[400px]">
+            <EventCalendar events={events} />
           </div>
-        )}
+
+          {/* Events Table - fills remaining space */}
+          {events.length === 0 ? (
+            <p className="text-center text-custom-green/70">No events available</p>
+          ) : (
+            <div className="flex-1 overflow-x-auto bg-white rounded-lg shadow">
+              <table className="w-full">
+                <thead className="bg-custom-green text-white">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Title</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Date</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Time</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Location</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Link</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {events.map((event, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-900 font-medium">
+                        {event.title}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {event.displayDate}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {event.time}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {event.location}
+                      </td>
+                      <td className="px-6 py-4 text-sm">
+                        {event.link ? (
+                          <a
+                            href={event.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-custom-green hover:underline"
+                          >
+                            View
+                          </a>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
 }
-
