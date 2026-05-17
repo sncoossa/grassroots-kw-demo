@@ -27,6 +27,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   const eventsByDate: Record<string, ActionItem[]> = {}
   
   const parseDisplayDate = (displayDate: string): Date | undefined => {
+    // Try to parse "Month Day, Year" format (e.g., "November 27, 2025")
     const dateObj = new Date(displayDate)
     if (!isNaN(dateObj.getTime())) {
       return dateObj
@@ -35,6 +36,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   }
   
   events.forEach((event) => {
+    // Use parsedDate if available, otherwise try to parse displayDate
     let eventDate = event.parsedDate
     if (!eventDate && event.displayDate !== "N/A") {
       eventDate = parseDisplayDate(event.displayDate)
@@ -68,6 +70,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   const handlePreviousMonth = () => {
     const newDate = new Date(currentDate)
     newDate.setMonth(newDate.getMonth() - 1)
+    // Don't go back more than 6 months
     const sixMonthsAgo = new Date()
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
     if (newDate >= sixMonthsAgo) {
@@ -78,6 +81,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   const handleNextMonth = () => {
     const newDate = new Date(currentDate)
     newDate.setMonth(newDate.getMonth() + 1)
+    // Don't go forward more than 6 months
     const sixMonthsAhead = new Date()
     sixMonthsAhead.setMonth(sixMonthsAhead.getMonth() + 6)
     if (newDate <= sixMonthsAhead) {

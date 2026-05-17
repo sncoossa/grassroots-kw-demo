@@ -41,12 +41,10 @@ export default function EventsPage() {
         </h1>
 
         <div className="flex flex-col lg:flex-row gap-6 items-start">
-          {/* Calendar - fixed width on desktop */}
           <div className="w-full lg:w-[400px] lg:min-w-[400px]">
             <EventCalendar events={events} />
           </div>
 
-          {/* Events Table - fills remaining space */}
           {events.length === 0 ? (
             <p className="text-center text-custom-green/70">No events available</p>
           ) : (
