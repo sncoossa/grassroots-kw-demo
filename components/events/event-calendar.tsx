@@ -102,9 +102,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
   })
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 mb-8">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-instrument-serif text-custom-green">
+    <div className="bg-white rounded-lg shadow p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-instrument-serif text-custom-green">
           {monthYearString}
         </h2>
         <div className="flex gap-2">
@@ -131,18 +131,18 @@ export function EventCalendar({ events }: EventCalendarProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-2 mb-2">
+      <div className="grid grid-cols-7 gap-1 mb-1">
         {daysOfWeek.map((day) => (
           <div
             key={day}
-            className="text-center font-semibold text-sm text-custom-green p-2"
+            className="text-center font-semibold text-xs text-custom-green p-1"
           >
             {day}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-1">
         {calendarDays.map((day, index) => {
           const dateKey =
             day !== null
@@ -157,38 +157,41 @@ export function EventCalendar({ events }: EventCalendarProps) {
           return (
             <div
               key={index}
-              className={`p-2 rounded border min-h-24 ${
+              className={`p-1 rounded border text-center ${
                 day === null
                   ? "bg-gray-50 border-gray-200"
                   : hasEvents
-                    ? "border-custom-green bg-custom-highlight overflow-y-auto"
+                    ? "border-custom-green bg-custom-highlight"
                     : "border-gray-200 hover:border-custom-green"
               }`}
+              title={hasEvents ? dayEvents.map(e => e.title).join(", ") : undefined}
             >
               {day && (
                 <div>
-                  <div className="font-semibold text-custom-green mb-2 text-xs">
+                  <div className="font-semibold text-custom-green text-xs">
                     {day}
                   </div>
                   {hasEvents && (
-                    <div className="space-y-1">
-                      {dayEvents.map((event, i) => (
+                    <div className="mt-0.5">
+                      {dayEvents.slice(0, 2).map((event, i) => (
                         <a
                           key={i}
                           href={event.link || "#"}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block bg-white rounded p-1 text-xs border border-custom-green/20 shadow-sm hover:shadow-md hover:border-custom-green transition-all cursor-pointer"
+                          className="block bg-white rounded px-1 py-0.5 text-[10px] leading-tight border border-custom-green/20 shadow-sm hover:shadow-md hover:border-custom-green transition-all cursor-pointer mb-0.5 truncate"
                           title={event.title}
                         >
-                          <div className="font-medium text-custom-green truncate">
+                          <span className="font-medium text-custom-green truncate block">
                             {event.title}
-                          </div>
-                          <div className="text-custom-green/70 text-xs">
-                            {event.time}
-                          </div>
+                          </span>
                         </a>
                       ))}
+                      {dayEvents.length > 2 && (
+                        <div className="text-[9px] text-custom-green/60 font-medium">
+                          +{dayEvents.length - 2} more
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -198,7 +201,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
         })}
       </div>
 
-      <div className="mt-4 text-sm text-gray-600">
+      <div className="mt-3 text-sm text-gray-600">
         <p>
           Showing {Object.keys(eventsByDate).length} days with events this month
         </p>
