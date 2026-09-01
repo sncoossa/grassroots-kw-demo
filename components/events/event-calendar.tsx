@@ -102,7 +102,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   })
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 mb-8">
+    <div className="bg-white rounded-lg shadow p-4 md:p-6 mb-8">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-instrument-serif text-custom-green">
           {monthYearString}
@@ -131,71 +131,76 @@ export function EventCalendar({ events }: EventCalendarProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-2 mb-2">
-        {daysOfWeek.map((day) => (
-          <div
-            key={day}
-            className="text-center font-semibold text-sm text-custom-green p-2"
-          >
-            {day}
+      {/* Scrollable wrapper for mobile */}
+      <div className="overflow-x-auto">
+        <div className="min-w-[600px]">
+          <div className="grid grid-cols-7 gap-2 mb-2">
+            {daysOfWeek.map((day) => (
+              <div
+                key={day}
+                className="text-center font-semibold text-sm text-custom-green p-2"
+              >
+                {day}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="grid grid-cols-7 gap-2">
-        {calendarDays.map((day, index) => {
-          const dateKey =
-            day !== null
-              ? new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-                  .toISOString()
-                  .split("T")[0]
-              : null
+          <div className="grid grid-cols-7 gap-2">
+            {calendarDays.map((day, index) => {
+              const dateKey =
+                day !== null
+                  ? new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+                      .toISOString()
+                      .split("T")[0]
+                  : null
 
-          const dayEvents = dateKey ? (eventsByDate[dateKey] || []) : []
-          const hasEvents = dayEvents.length > 0
+              const dayEvents = dateKey ? (eventsByDate[dateKey] || []) : []
+              const hasEvents = dayEvents.length > 0
 
-          return (
-            <div
-              key={index}
-              className={`p-2 rounded border min-h-24 ${
-                day === null
-                  ? "bg-gray-50 border-gray-200"
-                  : hasEvents
-                    ? "border-custom-green bg-custom-highlight overflow-y-auto"
-                    : "border-gray-200 hover:border-custom-green"
-              }`}
-            >
-              {day && (
-                <div>
-                  <div className="font-semibold text-custom-green mb-2 text-xs">
-                    {day}
-                  </div>
-                  {hasEvents && (
-                    <div className="space-y-1">
-                      {dayEvents.map((event, i) => (
-                        <a
-                          key={i}
-                          href={event.link || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block bg-white rounded p-1 text-xs border border-custom-green/20 shadow-sm hover:shadow-md hover:border-custom-green transition-all cursor-pointer"
-                          title={event.title}
-                        >
-                          <div className="font-medium text-custom-green truncate">
-                            {event.title}
-                          </div>
-                          <div className="text-custom-green/70 text-xs">
-                            {event.time}
-                          </div>
-                        </a>
-                      ))}
+              return (
+                <div
+                  key={index}
+                  className={`p-2 rounded border min-h-24 ${
+                    day === null
+                      ? "bg-gray-50 border-gray-200"
+                      : hasEvents
+                        ? "border-custom-green bg-custom-highlight overflow-y-auto"
+                        : "border-gray-200 hover:border-custom-green"
+                  }`}
+                >
+                  {day && (
+                    <div>
+                      <div className="font-semibold text-custom-green mb-2 text-xs">
+                        {day}
+                      </div>
+                      {hasEvents && (
+                        <div className="space-y-1">
+                          {dayEvents.map((event, i) => (
+                            <a
+                              key={i}
+                              href={event.link || "#"}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block bg-white rounded p-1 text-xs border border-custom-green/20 shadow-sm hover:shadow-md hover:border-custom-green transition-all cursor-pointer"
+                              title={event.title}
+                            >
+                              <div className="font-medium text-custom-green truncate">
+                                {event.title}
+                              </div>
+                              <div className="text-custom-green/70 text-xs">
+                                {event.time}
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
-          )
-        })}
+              )
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="mt-4 text-sm text-gray-600">

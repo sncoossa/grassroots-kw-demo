@@ -25,7 +25,7 @@ export default function EventsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-custom-bg pt-24 px-8">
+      <div className="min-h-screen bg-custom-bg pt-24 px-4 md:px-8">
         <div className="container mx-auto">
           <p className="text-center text-custom-green/70">Loading events...</p>
         </div>
@@ -34,7 +34,7 @@ export default function EventsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-custom-bg pt-24 px-8">
+    <div className="min-h-screen bg-custom-bg pt-24 px-4 md:px-8">
       <div className="container mx-auto">
         <h1 className="text-4xl font-instrument-serif text-custom-green mb-8">
           Events
@@ -98,4 +98,3 @@ export default function EventsPage() {
     </div>
   )
 }
-
